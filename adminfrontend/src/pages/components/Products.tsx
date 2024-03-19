@@ -1,7 +1,10 @@
 import Link from "next/link";
 import React from "react";
+import { useState } from "react";
 
 export const Products = () => {
+  const [name, setName] = useState("")
+  
   return (
     <form>
       <div className="flex flex-col">
