@@ -2,6 +2,9 @@ import Link from "next/link";
 import React from "react";
 
 export const Products = () => {
+  const inputValue = (e: any) => {
+    console.log(e.target.value);
+  };
   return (
     <form>
       <div className="flex flex-col">
@@ -21,6 +24,7 @@ export const Products = () => {
                   placeholder="Нэр"
                   className="bg-[#F7F7F8] p-2 rounded-[8px]"
                   type="text"
+                  onChange={inputValue}
                 />
               </div>
 
