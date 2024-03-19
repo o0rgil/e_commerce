@@ -7,7 +7,7 @@ export default function products() {
     <div className="flex">
       <LeftNavBar />
 
-      <div className="bg-gray-200">
+      <div className="bg-gray-200 w-screen">
         <Products />
       </div>
     </div>

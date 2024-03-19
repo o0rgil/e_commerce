@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export const Products = () => {
@@ -5,14 +6,14 @@ export const Products = () => {
     <form>
       <div className="flex flex-col">
         <div className="w-[1218px]">
-          <button className="flex h-14 items-center">
+          <Link href="/productnav" className="flex h-14 items-center ju">
             <img src="assets/icons/arrow.svg" alt="" />
             <p>Бүтээгдэхүүн нэмэх</p>
-          </button>
+          </Link>
         </div>
 
-        <div className="p-8 h-full w-full flex gap-6">
-          <div className="w-[563px] flex flex-col gap-6">
+        <div className="p-8 flex gap-6">
+          <div className="w-1/2 flex flex-col gap-6">
             <div className="bg-white p-6 rounded-[12px] flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-semibold">Бүтээгдэхүүн нэмэх</p>
@@ -43,7 +44,7 @@ export const Products = () => {
             </div>
 
             <div>
-              <div className="w-[563px] h-[231px] border rounded-2xl bg-white">
+              <div className="h-[231px] border rounded-2xl bg-white">
                 <p className="pt-6 pl-6 pb-4">Бүтээгдэхүүний зураг</p>
                 <div className="flex pl-6 gap-6">
                   <button className="w-[125px] h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
@@ -83,23 +84,23 @@ export const Products = () => {
             </div>
           </div>
 
-          <div className="w-[563px] flex flex-col gap-6">
-            <div className=" flex flex-col p-6 gap-4 w-[573px] bg-white rounded-lg">
+          <div className="w-1/2 flex flex-col gap-6">
+            <div className=" flex flex-col p-6 gap-4 bg-white rounded-lg">
               <div className="flex flex-col gap-2">
                 <p>Ерөнхий ангилал</p>
-                <select className=" bg-gray-100 rounded-lg border p-2">
-                  <option disabled selected>
-                    Сонгох
-                  </option>
-                </select>
+                <input
+                  className="h-14 bg-[#F7F7F8] rounded-[8px] p-2"
+                  placeholder="Сонгох"
+                  type="text"
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <p>Дэд ангилал</p>
-                <select className="bg-gray-100 rounded-lg border p-2">
-                  <option disabled selected>
-                    Сонгох
-                  </option>
-                </select>
+                <input
+                  className="h-14 bg-[#F7F7F8] rounded-[8px] p-2"
+                  placeholder="Сонгох"
+                  type="text"
+                />
               </div>
             </div>
 
