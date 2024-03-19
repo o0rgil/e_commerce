@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { LeftNavBar } from "./components/LeftNavBar";
+import { LeftNavBar } from "../components/LeftNavBar";
 
-import { DashBoard } from "../pages/components/DashBoard";
+import { DashBoard } from "../components/DashBoard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,4 +15,3 @@ export default function Home() {
     </div>
   );
 }
-

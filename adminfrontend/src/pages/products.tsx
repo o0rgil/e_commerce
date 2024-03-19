@@ -1,6 +1,6 @@
 import React from "react";
-import { LeftNavBar } from "./components/LeftNavBar";
-import { Products } from "./components/Products";
+import { LeftNavBar } from "../components/LeftNavBar";
+import { Products } from "../components/Products";
 
 export default function products() {
   return (
