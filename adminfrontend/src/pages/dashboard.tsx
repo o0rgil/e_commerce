@@ -1,6 +1,7 @@
 import React from "react";
-import { LeftNavBar } from "./components/LeftNavBar";
-import { DashBoard } from "./components/DashBoard";
+import { LeftNavBar } from "../pages/components/LeftNavBar";
+import { DashBoard } from "../pages/components/DashBoard";
+
 
 const dashboard = () => {
   return (

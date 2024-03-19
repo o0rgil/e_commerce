@@ -26,10 +26,13 @@ export const LeftNavBar = () => {
               <img src="/assets/icons/income.svg" alt="" />
               <li className="text-base font-semibold">Орлого</li>
             </div>
-            <div className={`${navStyle}`}>
-              <img src="/assets/icons/products.svg" alt="" />
-              <li className="text-base font-semibold">Бүтээгдэхүүн</li>
-            </div>
+            <Link href={"/productnav"}>
+              <div className={`${navStyle}`}>
+                <img src="/assets/icons/products.svg" alt="" />
+                <li className="text-base font-semibold">Бүтээгдэхүүн</li>
+              </div>
+            </Link>
+
             <div className={`${navStyle}`}>
               <img src="/assets/icons/settings.svg" alt="" />
               <li className="text-base font-semibold">Тохиргоо</li>
