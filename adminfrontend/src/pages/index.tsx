@@ -8,6 +8,7 @@ export default function Home() {
   return (
     <div className="bg-gray-200 w-screen h-screen">
       <LeftNavBar />
+      {/* Testing */}
     </div>
   );
 }
