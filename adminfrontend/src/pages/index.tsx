@@ -5,5 +5,7 @@ import { LeftNavBar } from "./components/LeftNavBar";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-
+  <div>
+    <LeftNavBar />
+  </div>;
 }
