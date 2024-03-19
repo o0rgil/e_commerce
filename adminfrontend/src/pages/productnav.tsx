@@ -1,14 +1,13 @@
 import React from "react";
-
+import { ProductList } from "../pages/components/ProductList";
 import { LeftNavBar } from "../pages/components/LeftNavBar";
-import { OrderNav } from "../pages/components/OrderNav";
 
-const order = () => {
+const productnav = () => {
   return (
     <div className="flex">
       <LeftNavBar />
-      <OrderNav />
+      <ProductList />
     </div>
   );
 };
-export default order;
+export default productnav;
