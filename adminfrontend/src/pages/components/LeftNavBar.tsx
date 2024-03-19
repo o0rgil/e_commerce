@@ -32,6 +32,7 @@ export const LeftNavBar = () => {
                 <li className="text-base font-semibold">Бүтээгдэхүүн</li>
               </div>
             </Link>
+
             <div className={`${navStyle}`}>
               <img src="/assets/icons/settings.svg" alt="" />
               <li className="text-base font-semibold">Тохиргоо</li>
