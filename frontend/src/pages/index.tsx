@@ -1,3 +1,4 @@
+
 import App from "@/components/CountDown";
 import { SectionMain } from "@/components/SectionMain";
 import { SectionSale } from "@/components/SectionSale";
@@ -10,6 +11,7 @@ export default function Home() {
     <div className="bg-gray-100 ">
       <SectionMain />
       <SectionSale />
+
     </div>
   );
 }

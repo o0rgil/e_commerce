@@ -17,9 +17,6 @@ const productSchema = new Schema({
   qty: {
     type: Number,
   },
-  thumbnails: {
-    type: String,
-  },
   images: {
     type: String,
     required: [true, "Please check image"],
