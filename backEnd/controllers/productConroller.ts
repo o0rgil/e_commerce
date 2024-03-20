@@ -5,7 +5,8 @@ import cloudinary from "../utils/cloudinary";
 export const product = async (req: Request, res: Response) => {
   try {
     const product = await Product.find({});
-    res.status(200).json({ message: "Successfully get file" });
+
+    res.status(200).json({ product, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed" });
@@ -114,8 +115,10 @@ export const productUpdate = async (req: Request, res: Response) => {
 
 // Deleting Products ===================================================
 export const productDelete = async (req: Request, res: Response) => {
-  const { _id } = req.body;
+  const _id = req.params.id;
+
   try {
+    console.log(_id, "productID");
     await Product.deleteOne({ _id });
     res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
