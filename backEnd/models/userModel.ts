@@ -1,7 +1,8 @@
-import { useColorScheme } from "@mui/material";
-import { Schema, model } from "mongoose";
 
-const userSchema = new Schema({
+import { Schema } from "mongoose";
+
+
+export const userSchema = new Schema({
   userName: {
     type: String,
     required: [true, "Please check name"],
@@ -44,7 +45,3 @@ const userSchema = new Schema({
     required: [true, " Please check createdAt"],
   },
 });
-
-const User = model("user", userSchema);
-
-export default User;

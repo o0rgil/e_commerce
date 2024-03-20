@@ -1,16 +1,18 @@
+
 import { Schema, model } from "mongoose";
 
 const productSchema = new Schema({
-  productName: {
-    type: String,
-    required: [true, "Please check name"],
-  },
+  // productName: {
+  //   type: String,
+  //   required: [true, "Please check name"],
+  // },
+
   categoryId: {
     type: String,
     required: [true],
   },
   price: {
-    type: String,
+    type: Number,
     required: [true, "Please check price"],
   },
   qty: {
@@ -49,6 +51,7 @@ const productSchema = new Schema({
   },
 });
 
-const Product = model("Product", productSchema);
 
+const Product = model("Product", productSchema);
 export default Product;
+
