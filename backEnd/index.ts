@@ -5,7 +5,6 @@ import { connectToDb } from "../backEnd/connectToDB";
 
 import { router } from "./routers/productRoute";
 
-
 const app = express();
 
 dotenv.config();
