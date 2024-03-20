@@ -74,16 +74,16 @@ export const Products = () => {
             </div>
 
             <div>
-              <div className="h-[231px] border rounded-2xl bg-white">
-                <p className="pt-6 pl-6 pb-4">Бүтээгдэхүүний зураг</p>
-                <div className="flex pl-6 gap-6">
-                  <button className="w-[125px] h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
+              <div className="h-[231px] p-6 flex flex-col gap-4 border rounded-2xl bg-white">
+                <p className="">Бүтээгдэхүүний зураг</p>
+                <div className="flex gap-6 justify-between">
+                  <button className="w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/image.svg" alt="" />
                   </button>
-                  <button className="w-[125px] h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
+                  <button className="w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/image.svg" alt="" />
                   </button>
-                  <button className="w-[125px] h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
+                  <button className="w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/image.svg" alt="" />
                   </button>
                   <button>
@@ -142,14 +142,14 @@ export const Products = () => {
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <p>Өнгө</p>
-                  <button>
+                  <button className="pl-[25px]">
                     <img src="assets/icons/add.svg" alt="" />
                   </button>
                 </div>
 
                 <div className="flex gap-2">
                   <p>Хэмжээ</p>
-                  <button>
+                  <button className="pl-[3px]">
                     <img src="assets/icons/add.svg" alt="" />
                   </button>
                 </div>
@@ -160,7 +160,7 @@ export const Products = () => {
               </button>
             </div>
 
-            <div className="p-6 flex flex-col gap-1 bg-white h-[210px] rounded-[12px]">
+            <div className="p-6 flex flex-col gap-1 bg-white h-[176px] rounded-[12px]">
               <p className="font-semibold">Таг</p>
 
               <input
