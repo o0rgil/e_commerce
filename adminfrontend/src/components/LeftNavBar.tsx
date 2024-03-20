@@ -8,7 +8,7 @@ export const LeftNavBar = () => {
   return (
     <div>
       <div className="w-[222px] h-screen bg-white">
-        <div className="fixed pt-6 z-10 bg-white">
+        <div className="fixed pt-6 z-10 bg-white h-screen">
           <ul className="flex flex-col">
             <Link href={"/dashboard"}>
               <div className={`${navStyle}`}>
