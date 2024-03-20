@@ -4,9 +4,17 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 const BASE_URL = "http://localhost:8080";
+interface Product {
+  _id: string; // Add this line
+  thumbnails: string;
+  productName: string;
+  price: number;
+  qty: number;
+  createdAt: string;
+}
 
 export const ProductList = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const router = useRouter();
 
   // Fetching Products from DB Scene ==============
@@ -51,9 +59,9 @@ export const ProductList = () => {
   // };
 
   return (
-    <div className="bg-gray-200 h-screen w-screen">
+    <div className="bg-gray-200 h-full w-screen pb-10">
       <div>
-        <ul className="flex gap-1 w-screen text-base font-normal border-b border-gray-300 pt-4 px-4 h-[56px] fixed">
+        <ul className="flex gap-1 w-screen text-base font-normal border-b border-gray-300 pt-4 px-4 h-[56px] fixed bg-gray-200">
           <li className="text-center w-[124px] hover:font-medium hover:border-b-2 hover:border-black duration-300 cursor-pointer active:scale-95">
             Бүтээгдэхүүн
           </li>
@@ -139,7 +147,8 @@ export const ProductList = () => {
             {products.map((data, index) => (
               <tr
                 key={data._id}
-                className="flex text-sm text-[#3F4145] font-normal">
+                className="flex text-sm text-[#3F4145] font-normal"
+              >
                 <td className="w-[68px] flex justify-center items-center">
                   <input type="checkbox" />
                 </td>
