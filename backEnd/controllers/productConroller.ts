@@ -1,8 +1,6 @@
 import Product from "../models/productModel";
 import { Request, Response } from "express";
 import cloudinary from "../utils/cloudinary";
-import { IReq } from "../types/interface";
-import { resolve } from "path";
 
 export const product = async (req: Request, res: Response) => {
   try {
@@ -15,7 +13,7 @@ export const product = async (req: Request, res: Response) => {
 };
 
 // Creating Products ===================================================
-export const productCreate = async (req: IReq, res: Response) => {
+export const productCreate = async (req: Request, res: Response) => {
   const {
     productName,
     categoryId,
