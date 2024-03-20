@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 
 import Link from "next/link";
@@ -169,8 +168,7 @@ export const ProductList = () => {
             {mockData.map((data, index) => (
               <tr
                 key={data._id}
-                className="flex text-sm text-[#3F4145] font-normal"
-              >
+                className="flex text-sm text-[#3F4145] font-normal">
                 <td className="w-[68px] flex justify-center items-center">
                   <input type="checkbox" />
                 </td>
