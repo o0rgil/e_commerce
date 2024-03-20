@@ -26,19 +26,24 @@ export const productCreate = async (req: Request, res: Response) => {
     viewsCount,
     createdAt,
   } = req.body;
+  console.log("body", req.body);
   const { image } = req.files as {
     [fieldname: string]: Express.Multer.File[];
   };
+  console.log("files", req.files);
   try {
     let uploadedImages = [];
-    if (image && image.length > 0) {
-      uploadedImages = await Promise.all(
-        image.map(async (file) => {
-          const uploadedImage = await cloudinary.uploader.upload(file.path);
-          return uploadedImage.secure_url;
-        })
-      );
-    }
+    console.log("first");
+
+    uploadedImages = await Promise.all(
+      image.map(async (file) => {
+        console.log("first", image);
+        const uploadedImage = await cloudinary.uploader.upload(file.path);
+        console.log("uploaded", uploadedImage);
+        return uploadedImage.secure_url;
+      })
+    );
+    console.log("image", uploadedImages);
 
     const newProduct = await Product.create({
       productName,

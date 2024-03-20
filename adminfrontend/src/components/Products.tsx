@@ -32,7 +32,6 @@ export const Products = () => {
     } catch (error) {}
   };
 
-
   return (
     <div>
       <div className="flex flex-col">
@@ -82,9 +81,16 @@ export const Products = () => {
                 <div className="flex gap-6 justify-between">
                   <label
                     id="avatarLable"
-                    className=" cursor-pointer w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
+                    className=" cursor-pointer w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center"
+                  >
                     <img src="assets/icons/addedImage.svg" alt="" />
-                    <input hidden type="file" className="" id="avatar" />
+                    <input
+                      hidden
+                      type="file"
+                      className=""
+                      id="avatar"
+                      onChange={(e: any) => setImg(e.target.files[0])}
+                    />
                   </label>
                   <label className="cursor-pointer w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/addedImage.svg" alt="" />
@@ -191,7 +197,8 @@ export const Products = () => {
 
           <button
             onClick={addProduct}
-            className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white">
+            className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white"
+          >
             Нийтлэх
           </button>
         </div>
