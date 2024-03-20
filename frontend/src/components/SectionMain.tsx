@@ -1,6 +1,6 @@
-import { Avatar1 } from "../../public/assets/avatar1";
 import React, { useState, useEffect } from "react";
 import axios, { AxiosResponse } from "axios";
+import { Avatar1 } from "../../public/assets/Avatar1";
 
 interface Item {
   thumbnails: string;
