@@ -49,7 +49,7 @@ export const Products = () => {
 
             <div>
               <div className="h-[231px] p-6 flex flex-col gap-4 border rounded-2xl bg-white">
-                <p className="">Бүтээгдэхүүний зураг</p>
+                <p className="text-sm font-semibold">Бүтээгдэхүүний зураг</p>
                 <div className="flex gap-6 justify-between">
                   <button className="w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/image.svg" alt="" />
@@ -91,7 +91,7 @@ export const Products = () => {
           <div className="w-1/2 flex flex-col gap-6">
             <div className=" flex flex-col p-6 gap-4 bg-white rounded-lg">
               <div className="flex flex-col gap-2">
-                <p>Ерөнхий ангилал</p>
+                <p className="text-sm font-semibold">Ерөнхий ангилал</p>
                 <input
                   className="h-14 bg-[#F7F7F8] rounded-[8px] p-2"
                   placeholder="Сонгох"
@@ -99,7 +99,7 @@ export const Products = () => {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <p>Дэд ангилал</p>
+                <p className="text-sm font-semibold">Дэд ангилал</p>
                 <input
                   className="h-14 bg-[#F7F7F8] rounded-[8px] p-2"
                   placeholder="Сонгох"
@@ -132,7 +132,7 @@ export const Products = () => {
               </button>
             </div>
 
-            <div className="p-6 flex flex-col gap-1 bg-white h-[176px] rounded-[12px]">
+            <div className="p-6 flex flex-col gap-1 bg-white h-[184px] rounded-[12px]">
               <p className="font-semibold">Таг</p>
 
               <input
