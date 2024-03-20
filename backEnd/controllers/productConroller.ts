@@ -14,6 +14,7 @@ export const product = async (req: Request, res: Response) => {
 };
 
 // Creating Products ===================================================
+
 // export const productCreate = async (req: Request, res: Response) => {
 //   const {
 //     productName,
@@ -60,6 +61,7 @@ export const product = async (req: Request, res: Response) => {
 //     return res.status(400).json({ message: "Failed to create product" });
 //   }
 // };
+
 
 // Updating Products ===================================================
 export const productUpdate = async (req: Request, res: Response) => {
