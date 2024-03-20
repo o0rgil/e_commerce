@@ -1,6 +1,8 @@
 import Product from "../models/productModel";
 import { Request, Response } from "express";
 import cloudinary from "../utils/cloudinary";
+import { IReq } from "../types/interface";
+import { resolve } from "path";
 
 export const product = async (req: Request, res: Response) => {
   try {
@@ -13,7 +15,7 @@ export const product = async (req: Request, res: Response) => {
 };
 
 // Creating Products ===================================================
-export const productCreate = async (req: Request, res: Response) => {
+export const productCreate = async (req: IReq, res: Response) => {
   const {
     productName,
     categoryId,
@@ -25,21 +27,35 @@ export const productCreate = async (req: Request, res: Response) => {
     viewsCount,
     createdAt,
   } = req.body;
-  const { thumbnail, image } = req.file;
+  const { thumbnail, image } = req.files as {
+    [fieldname: string]: Express.Multer.File[];
+  };
   try {
     console.log(req.body);
-    const newImage = await cloudinary.uploader.upload(image.path);
-    const newThumbnail = await cloudinary.uploader.upload(thumbnail.path);
-    console.log("newImage", newImage);
-    console.log("newThumbnail", newThumbnail);
+
+    const uploadedThumbnails = await Promise.all(
+      thumbnail.map(async (file) => {
+        const uploadedThumbnail = await cloudinary.uploader.upload(file.path);
+        console.log("uploadedThumbnail", uploadedThumbnail);
+        return uploadedThumbnail.secure_url;
+      })
+    );
+
+    const uploadedImages = await Promise.all(
+      image.map(async (file) => {
+        const uploadedImage = await cloudinary.uploader.upload(file.path);
+        console.log("uploadedImage", uploadedImage);
+        return uploadedImage.secure_url;
+      })
+    );
 
     const newProduct = await Product.create({
       productName,
       categoryId,
       price,
       qty,
-      thumbnails: newThumbnail.secure_url,
-      images: newImage.secure_url,
+      thumbnails: uploadedThumbnails,
+      images: uploadedImages,
       coupon,
       salePercent,
       description,
