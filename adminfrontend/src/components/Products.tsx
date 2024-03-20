@@ -1,12 +1,37 @@
 import Link from "next/link";
 import React from "react";
+import { useState } from "react";
 
 export const Products = () => {
-  const inputValue = (e: any) => {
-    console.log(e.target.value);
+  const [productName, setProductName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [img, setImg] = useState("");
+  const [qty, setQty] = useState("");
+
+  const addProduct = async () => {
+    try {
+      const input = {
+        productName: productName,
+        description: description,
+        price: price,
+        categoryId: categoryId,
+        qty: qty,
+      };
+
+      console.log(input);
+
+      const res = await fetch("http://localhost:8080/productCreate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(input),
+      });
+    } catch (error) {}
   };
+
   return (
-    <form>
+    <div>
       <div className="flex flex-col">
         <div className="w-[1218px]">
           <Link href="/productnav" className="flex h-14 items-center ju">
@@ -14,23 +39,23 @@ export const Products = () => {
             <p>Бүтээгдэхүүн нэмэх</p>
           </Link>
         </div>
-
         <div className="p-8 flex gap-6">
           <div className="w-1/2 flex flex-col gap-6">
             <div className="bg-white p-6 rounded-[12px] flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-semibold">Бүтээгдэхүүн нэмэх</p>
                 <input
+                  onChange={(e) => setProductName(e.target.value)}
                   placeholder="Нэр"
                   className="bg-[#F7F7F8] p-2 rounded-[8px]"
                   type="text"
-                  onChange={inputValue}
                 />
               </div>
 
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-semibold">Нэмэлт мэдээлэл</p>
                 <input
+                  onChange={(e) => setDescription(e.target.value)}
                   placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
                   className="bg-[#F7F7F8] p-2 rounded-[8px]"
                   type="text"
@@ -40,6 +65,7 @@ export const Products = () => {
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-semibold">Барааны код</p>
                 <input
+                  onChange={(e) => setCategoryId(e.target.value)}
                   placeholder="#12345678"
                   className="bg-[#F7F7F8] p-2 rounded-[8px]"
                   type="text"
@@ -71,6 +97,7 @@ export const Products = () => {
               <div className="flex flex-col w-1/2 gap-2">
                 <p className="text-sm font-semibold">Үндсэн үнэ</p>
                 <input
+                  onChange={(e) => setPrice(e.target.value)}
                   placeholder="Үндсэн үнэ"
                   className="bg-[#F7F7F8] p-2 rounded-[8px]"
                   type="text"
@@ -80,6 +107,7 @@ export const Products = () => {
               <div className="flex flex-col w-1/2 gap-2">
                 <p className="text-sm font-semibold">Үлдэгдэл тоо ширхэг</p>
                 <input
+                  onChange={(e) => setQty(e.target.value)}
                   placeholder="Үлдэгдэл тоо ширхэг"
                   className="bg-[#F7F7F8] p-2 rounded-[8px]"
                   type="text"
@@ -153,11 +181,13 @@ export const Products = () => {
             Ноорог
           </button>
 
-          <button className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white">
+          <button
+            onClick={addProduct}
+            className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white">
             Нийтлэх
           </button>
         </div>
       </div>
-    </form>
+    </div>
   );
 };

@@ -5,7 +5,6 @@ import { connectToDb } from "../backEnd/connectToDB";
 
 import { router } from "./routers/productRoute";
 
-
 const app = express();
 
 dotenv.config();
@@ -24,3 +23,10 @@ app.use(router);
 app.listen(PORT, () => {
   console.log("application running at: http://localhost:" + PORT);
 });
+
+// app.post("/productCreate", async (req, res) => {
+//   const { productName, description, price, categoryId, qty } = req.body;
+//   console.log("req.body", req.body);
+// });
+
+module.exports.app;
