@@ -5,15 +5,6 @@ import { useRouter } from "next/router";
 
 const BASE_URL = "http://localhost:8080";
 
-interface Product {
-  product: string;
-  category: string;
-  price: number;
-  residual: number;
-  soldout: number;
-  date: string;
-}
-
 export const ProductList = () => {
   const [products, setProducts] = useState([]);
   const router = useRouter();
@@ -182,9 +173,9 @@ export const ProductList = () => {
                     src="/assets/icons/edit.svg"
                     alt=""
                     className="cursor-pointer hover:scale-[1.3] duration-200"
-                    onClick={() => {
-                      router.push({ pathname: "/product", query: { _id } });
-                    }}
+                    // onClick={() => {
+                    //   router.push({ pathname: "/product", query: { _id } });
+                    // }}
                   />
                 </td>
               </tr>
