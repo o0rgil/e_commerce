@@ -77,9 +77,10 @@ export const Products = () => {
               <div className="h-[231px] p-6 flex flex-col gap-4 border rounded-2xl bg-white">
                 <p className="text-sm font-semibold">Бүтээгдэхүүний зураг</p>
                 <div className="flex gap-6 justify-between">
-                  <button className="w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
-                    <img src="assets/icons/image.svg" alt="" />
-                  </button>
+                  <input
+                    type="file"
+                    className="w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center"
+                  />
                   <button className="w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/image.svg" alt="" />
                   </button>
@@ -183,7 +184,8 @@ export const Products = () => {
 
           <button
             onClick={addProduct}
-            className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white">
+            className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white"
+          >
             Нийтлэх
           </button>
         </div>

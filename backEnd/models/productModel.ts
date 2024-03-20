@@ -5,10 +5,6 @@ const productSchema = new Schema({
     type: String,
     required: [true, "Please check name"],
   },
-<<<<<<< HEAD
-
-=======
->>>>>>> main
   categoryId: {
     type: String,
     required: [true],
