@@ -51,13 +51,13 @@ export const ProductList = () => {
   };
 
   // Editing Scene ================================
-  const handleEdit = async () => {
-    try {
-      router.push(`/products`);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleEdit = async (_id, index) => {
+  //   try {
+  //     router.push({ pathname: "/product", query: { _id } });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className="bg-gray-200 h-screen w-screen">
@@ -182,7 +182,9 @@ export const ProductList = () => {
                     src="/assets/icons/edit.svg"
                     alt=""
                     className="cursor-pointer hover:scale-[1.3] duration-200"
-                    onClick={handleEdit}
+                    onClick={() => {
+                      router.push({ pathname: "/product", query: { _id } });
+                    }}
                   />
                 </td>
               </tr>
