@@ -18,7 +18,7 @@ const productSchema = new Schema({
     type: Number,
   },
   images: {
-    type: String,
+    type: [String],
     required: [true, "Please check image"],
   },
   coupon: {

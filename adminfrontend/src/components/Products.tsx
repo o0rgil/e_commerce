@@ -84,7 +84,13 @@ export const Products = () => {
                     className=" cursor-pointer w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center"
                   >
                     <img src="assets/icons/addedImage.svg" alt="" />
-                    <input hidden type="file" className="" id="avatar" />
+                    <input
+                      hidden
+                      type="file"
+                      className=""
+                      id="avatar"
+                      onChange={(e: any) => setImg(e.target.files[0])}
+                    />
                   </label>
                   <label className="cursor-pointer w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/addedImage.svg" alt="" />
