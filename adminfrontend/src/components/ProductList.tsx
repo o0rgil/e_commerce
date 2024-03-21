@@ -50,13 +50,13 @@ export const ProductList = () => {
   };
 
   // Editing Scene ================================
-  // const handleEdit = async (_id, index) => {
-  //   try {
-  //     router.push({ pathname: "/product", query: { _id } });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const handleEdit = async (_id: any, index: any) => {
+    try {
+      router.push({ pathname: "/products", query: { _id } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="bg-gray-200 h-full w-screen pb-10">
@@ -181,9 +181,7 @@ export const ProductList = () => {
                     src="/assets/icons/edit.svg"
                     alt=""
                     className="cursor-pointer hover:scale-[1.3] duration-200"
-                    // onClick={() => {
-                    //   router.push({ pathname: "/product", query: { _id } });
-                    // }}
+                    onClick={(e) => handleEdit(data._id, index)}
                   />
                 </td>
               </tr>

@@ -62,48 +62,29 @@ export const product = async (req: Request, res: Response) => {
 //   }
 // };
 
-
 // Updating Products ===================================================
 export const productUpdate = async (req: Request, res: Response) => {
-  const {
-    _id,
-    productName,
-    categoryId,
-    price,
-    qty,
-    thumbnails,
-    images,
-    coupon,
-    salePercent,
-    description,
-    viewsCount,
-    createdAt,
-  } = req.body;
+  const _id = req.params.id;
+  const { name, desc, categoryid, price, qnty, img } = req.body;
 
   try {
-    await Product.updateOne(
-      { _id },
-      {
-        $set: {
-          productName,
-          categoryId,
-          price,
-          qty,
-          thumbnails,
-          images,
-          coupon,
-          salePercent,
-          description,
-          viewsCount,
-          createdAt,
-        },
-      }
-    );
+    const existingProduct = await Product.findById(_id);
+    if (!existingProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    await Product.findByIdAndUpdate(_id, {
+      productName: name,
+      description: desc,
+      categoryId: categoryid,
+      price: price,
+      qty: qnty,
+      img: img,
+    });
 
-    res.status(200).json({ message: "Product updated successfully" });
+    res.status(200).send({ message: "Product updated successfully" });
   } catch (error) {
     console.error("error in create product", error);
-    return res.status(400).json({ message: "Failed to update product" });
+    return res.status(500).send({ message: "Failed to update product" });
   }
 };
 
@@ -118,5 +99,21 @@ export const productDelete = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("error in delete product", error);
     return res.status(400).json({ message: "Failed to delete product" });
+  }
+};
+
+// Getting one product to edit =========================================
+export const productEdit = async (req: Request, res: Response) => {
+  try {
+    const _id = req.params.id;
+    console.log(_id, "productId");
+    const product = await Product.findOne({ _id });
+    console.log(product, "Product");
+    res
+      .status(200)
+      .json({ message: "Succesfully fetch product data", product });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: "Getting problem to send product data" });
   }
 };
