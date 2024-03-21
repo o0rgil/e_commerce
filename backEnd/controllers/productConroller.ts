@@ -33,6 +33,8 @@ export const productCreate = async (req: Request, res: Response) => {
   // };
   console.log("files", req.files);
   // console.log("files", req.files[0].image);
+  const parsedInput = JSON.parse(req.body.input);
+
   try {
     let uploadedImages = [];
     const files = req.files as Express.Multer.File[];
@@ -44,75 +46,55 @@ export const productCreate = async (req: Request, res: Response) => {
         return uploadedImage.secure_url;
       })
     );
-    console.log("image", uploadedImages);
 
 
-// export const productCreate = async (req: Request, res: Response) => {
-//   const {
-//     productName,
-//     categoryId,
-//     price,
-//     qty,
-//     coupon,
-//     salePercent,
-//     description,
-//     viewsCount,
-//     createdAt,
-//   } = req.body;
-//   const { image } = req.files as {
-//     [fieldname: string]: Express.Multer.File[];
-//   };
-//   try {
-//     let uploadedImages = [];
-//     if (image && image.length > 0) {
-//       uploadedImages = await Promise.all(
-//         image.map(async (file) => {
-//           const uploadedImage = await cloudinary.uploader.upload(file.path);
-//           return uploadedImage.secure_url;
-//         })
-//       );
-//     }
-
-//     const newProduct = await Product.create({
-//       productName,
-//       categoryId,
-//       price,
-//       qty,
-//       images: uploadedImages,
-//       coupon,
-//       salePercent,
-//       description,
-//       viewsCount,
-//       createdAt,
-//     });
-
-//     console.log("Successfully created", newProduct);
-//     return res.status(201).json({ message: "Created", product: newProduct });
-//   } catch (error) {
-//     console.error("error in create product", error);
-//     return res.status(400).json({ message: "Failed to create product" });
-//   }
-// };
+    const newProduct = await Product.create({
+      productName: parsedInput.productName,
+      productNumber: parsedInput.productNumber,
+      price: parsedInput.price,
+      qty: parsedInput.qty,
+      images: uploadedImages,
+      description: parsedInput.description,
+    });
+    console.log("Successfully created", newProduct);
+    return res.status(201).json({ message: "Created", product: newProduct });
+  } catch (error) {
+    console.error("error in create product", error);
+    return res.status(400).json({ message: "Failed to create product" });
+  }
+};
 
 // Updating Products ===================================================
 export const productUpdate = async (req: Request, res: Response) => {
-
-  const _id = req.params.id;
-  const { name, desc, categoryid, price, qnty, img } = req.body;
+  const {
+    _id,
+    productName,
+    productNumber,
+    price,
+    qty,
+    images,
+    description,
+    viewsCount,
+    createdAt,
+  } = req.body;
 
   try {
-    const existingProduct = await Product.findById(_id);
-    if (!existingProduct) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    await Product.findByIdAndUpdate(_id, {
-      productName: name,
-      description: desc,
-      categoryId: categoryid,
-      price: price,
-      qty: qnty,
-      img: img,
-    });
+    await Product.findOneAndUpdate(
+      { _id },
+      {
+        $set: {
+          productName,
+          productNumber,
+          price,
+          qty,
+          images,
+          description,
+          viewsCount,
+          createdAt,
+        },
+      }
+    );
+
 
 
     res.status(200).send({ message: "Product updated successfully" });
