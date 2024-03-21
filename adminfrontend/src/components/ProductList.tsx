@@ -159,7 +159,7 @@ export const ProductList = () => {
                   {data.productName}
                 </td>
                 <td className="w-[156.8px] h-[44px] flex justify-start items-center">
-                  {data.price}
+                  {data.price}₮
                 </td>
                 <td className="w-[156.8px] h-[44px] flex justify-start items-center">
                   {data.price}
