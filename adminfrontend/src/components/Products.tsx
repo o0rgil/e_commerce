@@ -89,9 +89,9 @@ export const Products = () => {
         name: productName,
         desc: description,
         price: price,
-        categoryid: categoryId,
+        categoryid: productNumber,
         qnty: qty,
-        img: img,
+        img: images,
       };
 
       const response = await axios.put(
