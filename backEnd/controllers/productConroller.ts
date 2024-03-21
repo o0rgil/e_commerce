@@ -15,44 +15,28 @@ export const product = async (req: Request, res: Response) => {
 
 // Creating Products ===================================================
 export const productCreate = async (req: Request, res: Response) => {
-  const {
-    productName,
-    categoryId,
-    price,
-    qty,
-    coupon,
-    salePercent,
-    description,
-    viewsCount,
-    createdAt,
-  } = req.body;
-  const { image } = req.files as {
-    [fieldname: string]: Express.Multer.File[];
-  };
+  const parsedInput = JSON.parse(req.body.input);
+
   try {
     let uploadedImages = [];
-    if (image && image.length > 0) {
-      uploadedImages = await Promise.all(
-        image.map(async (file) => {
-          const uploadedImage = await cloudinary.uploader.upload(file.path);
-          return uploadedImage.secure_url;
-        })
-      );
-    }
+    const files = req.files as Express.Multer.File[];
+    uploadedImages = await Promise.all(
+      files.map(async (file: { path: string }) => {
+        console.log("file paht", file.path);
+        const uploadedImage = await cloudinary.uploader.upload(file.path);
+        console.log("uploaded", uploadedImage);
+        return uploadedImage.secure_url;
+      })
+    );
 
     const newProduct = await Product.create({
-      productName,
-      categoryId,
-      price,
-      qty,
+      productName: parsedInput.productName,
+      productNumber: parsedInput.productNumber,
+      price: parsedInput.price,
+      qty: parsedInput.qty,
       images: uploadedImages,
-      coupon,
-      salePercent,
-      description,
-      viewsCount,
-      createdAt,
+      description: parsedInput.description,
     });
-
     console.log("Successfully created", newProduct);
     return res.status(201).json({ message: "Created", product: newProduct });
   } catch (error) {
@@ -66,31 +50,25 @@ export const productUpdate = async (req: Request, res: Response) => {
   const {
     _id,
     productName,
-    categoryId,
+    productNumber,
     price,
     qty,
-    thumbnails,
     images,
-    coupon,
-    salePercent,
     description,
     viewsCount,
     createdAt,
   } = req.body;
 
   try {
-    await Product.updateOne(
+    await Product.findOneAndUpdate(
       { _id },
       {
         $set: {
           productName,
-          categoryId,
+          productNumber,
           price,
           qty,
-          thumbnails,
           images,
-          coupon,
-          salePercent,
           description,
           viewsCount,
           createdAt,
