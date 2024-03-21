@@ -26,18 +26,18 @@ export const productCreate = async (req: Request, res: Response) => {
     viewsCount,
     createdAt,
   } = req.body;
-  console.log("body", req.body);
-  const { image } = req.files as {
-    [fieldname: string]: Express.Multer.File[];
-  };
+  // console.log("body", req.body);
+  // const { image } = req.files as {
+  //   [fieldname: string]: Express.Multer.File[];
+  // };
   console.log("files", req.files);
+  // console.log("files", req.files[0].image);
   try {
     let uploadedImages = [];
-    console.log("first");
-
+    const files = req.files as Express.Multer.File[];
     uploadedImages = await Promise.all(
-      image.map(async (file) => {
-        console.log("first", image);
+      files.map(async (file: { path: string }) => {
+        console.log("file paht", file.path);
         const uploadedImage = await cloudinary.uploader.upload(file.path);
         console.log("uploaded", uploadedImage);
         return uploadedImage.secure_url;
@@ -74,7 +74,6 @@ export const productUpdate = async (req: Request, res: Response) => {
     categoryId,
     price,
     qty,
-    thumbnails,
     images,
     coupon,
     salePercent,
@@ -84,7 +83,7 @@ export const productUpdate = async (req: Request, res: Response) => {
   } = req.body;
 
   try {
-    await Product.updateOne(
+    await Product.findOneAndUpdate(
       { _id },
       {
         $set: {
@@ -92,7 +91,6 @@ export const productUpdate = async (req: Request, res: Response) => {
           categoryId,
           price,
           qty,
-          thumbnails,
           images,
           coupon,
           salePercent,
