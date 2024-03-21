@@ -1,9 +1,26 @@
 import Link from "next/link";
-
+import { useRouter } from "next/router";
+import axios from "axios";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Products = () => {
+  // ID from edit button=========
+  const router = useRouter();
+  const { _id } = router.query;
+  // console.log(_id, "ID from Edit side");
+  const [update, setUpdate] = useState(false);
+  const [product, setProduct] = useState({});
+  // console.log(product, "product on state");
+  useEffect(() => {
+    if (_id) {
+      setUpdate(true);
+    } else {
+      return;
+    }
+  });
+  //=============================
+
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -23,13 +40,63 @@ export const Products = () => {
       };
 
       console.log(input);
-
       const res = await fetch("http://localhost:8080/productCreate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(input),
       });
     } catch (error) {}
+  };
+
+  // Fetching data to update it =======================================
+  const gettingData = async () => {
+    try {
+      if (_id) {
+        const response = await axios.get(
+          `http://localhost:8080/products/${_id}`
+        );
+        // console.log(response.data.product, "response");
+        setProduct(response.data.product);
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    gettingData();
+  }, []);
+
+  // Updating product scene =============================================
+  const updateProduct = async () => {
+    try {
+      const input = {
+        name: productName,
+        desc: description,
+        price: price,
+        categoryid: categoryId,
+        qnty: qty,
+        img: img,
+      };
+
+      const response = await axios.put(
+        `http://localhost:8080/productUpdate/${_id}`,
+        input
+      );
+      if (response.status === 200) {
+        alert("Product updated successfully");
+        console.log(response.data);
+      } else {
+        alert("Failed to update product");
+        console.error(response.data);
+      }
+      console.log(response);
+    } catch (error) {
+      alert(error.response.data.message);
+      console.error(error);
+    }
   };
 
   return (
@@ -46,22 +113,40 @@ export const Products = () => {
             <div className="bg-white p-6 rounded-[12px] flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-semibold">Бүтээгдэхүүн нэмэх</p>
-                <input
-                  onChange={(e) => setProductName(e.target.value)}
-                  placeholder="Нэр"
-                  className="bg-[#F7F7F8] p-2 rounded-[8px]"
-                  type="text"
-                />
+                {update ? (
+                  <input
+                    onChange={(e) => setProductName(e.currentTarget.value)}
+                    defaultValue={product.productName}
+                    className="bg-[#F7F7F8] p-2 rounded-[8px]"
+                    type="text"
+                  />
+                ) : (
+                  <input
+                    onChange={(e) => setProductName(e.target.value)}
+                    placeholder="Нэр"
+                    className="bg-[#F7F7F8] p-2 rounded-[8px]"
+                    type="text"
+                  />
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-semibold">Нэмэлт мэдээлэл</p>
-                <input
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
-                  className="bg-[#F7F7F8] p-2 rounded-[8px]"
-                  type="text"
-                />
+                {update ? (
+                  <input
+                    onChange={(e) => setDescription(e.target.value)}
+                    defaultValue={product.description}
+                    className="bg-[#F7F7F8] p-2 rounded-[8px]"
+                    type="text"
+                  />
+                ) : (
+                  <input
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
+                    className="bg-[#F7F7F8] p-2 rounded-[8px]"
+                    type="text"
+                  />
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -110,22 +195,40 @@ export const Products = () => {
             <div className="p-6 bg-white rounded-[12px] flex gap-4">
               <div className="flex flex-col w-1/2 gap-2">
                 <p className="text-sm font-semibold">Үндсэн үнэ</p>
-                <input
-                  onChange={(e) => setPrice(e.target.value)}
-                  placeholder="Үндсэн үнэ"
-                  className="bg-[#F7F7F8] p-2 rounded-[8px]"
-                  type="text"
-                />
+                {update ? (
+                  <input
+                    onChange={(e) => setPrice(e.target.value)}
+                    defaultValue={product.price}
+                    className="bg-[#F7F7F8] p-2 rounded-[8px]"
+                    type="text"
+                  />
+                ) : (
+                  <input
+                    onChange={(e) => setPrice(e.target.value)}
+                    placeholder="Үндсэн үнэ"
+                    className="bg-[#F7F7F8] p-2 rounded-[8px]"
+                    type="text"
+                  />
+                )}
               </div>
 
               <div className="flex flex-col w-1/2 gap-2">
                 <p className="text-sm font-semibold">Үлдэгдэл тоо ширхэг</p>
-                <input
-                  onChange={(e) => setQty(e.target.value)}
-                  placeholder="Үлдэгдэл тоо ширхэг"
-                  className="bg-[#F7F7F8] p-2 rounded-[8px]"
-                  type="text"
-                />
+                {update ? (
+                  <input
+                    onChange={(e) => setQty(e.target.value)}
+                    defaultValue={product.qty}
+                    className="bg-[#F7F7F8] p-2 rounded-[8px]"
+                    type="text"
+                  />
+                ) : (
+                  <input
+                    onChange={(e) => setQty(e.target.value)}
+                    placeholder="Үлдэгдэл тоо ширхэг"
+                    className="bg-[#F7F7F8] p-2 rounded-[8px]"
+                    type="text"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -191,12 +294,21 @@ export const Products = () => {
         </div>
 
         <div className="flex justify-end p-8">
-          <button
-            onClick={addProduct}
-            className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white"
-          >
-            Нийтлэх
-          </button>
+          {update ? (
+            <button
+              onClick={updateProduct}
+              className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white"
+            >
+              Засах
+            </button>
+          ) : (
+            <button
+              onClick={addProduct}
+              className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white"
+            >
+              Нийтлэх
+            </button>
+          )}
         </div>
       </div>
     </div>
