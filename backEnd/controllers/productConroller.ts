@@ -14,6 +14,7 @@ export const product = async (req: Request, res: Response) => {
 };
 
 // Creating Products ===================================================
+
 export const productCreate = async (req: Request, res: Response) => {
   const {
     productName,
@@ -45,6 +46,7 @@ export const productCreate = async (req: Request, res: Response) => {
         return uploadedImage.secure_url;
       })
     );
+
 
     const newProduct = await Product.create({
       productName: parsedInput.productName,
@@ -93,10 +95,12 @@ export const productUpdate = async (req: Request, res: Response) => {
       }
     );
 
-    res.status(200).json({ message: "Product updated successfully" });
+
+
+    res.status(200).send({ message: "Product updated successfully" });
   } catch (error) {
     console.error("error in create product", error);
-    return res.status(400).json({ message: "Failed to update product" });
+    return res.status(500).send({ message: "Failed to update product" });
   }
 };
 
@@ -111,5 +115,21 @@ export const productDelete = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("error in delete product", error);
     return res.status(400).json({ message: "Failed to delete product" });
+  }
+};
+
+// Getting one product to edit =========================================
+export const productEdit = async (req: Request, res: Response) => {
+  try {
+    const _id = req.params.id;
+    console.log(_id, "productId");
+    const product = await Product.findOne({ _id });
+    console.log(product, "Product");
+    res
+      .status(200)
+      .json({ message: "Succesfully fetch product data", product });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: "Getting problem to send product data" });
   }
 };

@@ -4,9 +4,17 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 const BASE_URL = "http://localhost:8080";
+interface Product {
+  _id: string; // Add this line
+  thumbnails: string;
+  productName: string;
+  price: number;
+  qty: number;
+  createdAt: string;
+}
 
 export const ProductList = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const router = useRouter();
 
   // Fetching Products from DB Scene ==============
@@ -42,18 +50,18 @@ export const ProductList = () => {
   };
 
   // Editing Scene ================================
-  // const handleEdit = async (_id, index) => {
-  //   try {
-  //     router.push({ pathname: "/product", query: { _id } });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const handleEdit = async (_id: any, index: any) => {
+    try {
+      router.push({ pathname: "/products", query: { _id } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <div className="bg-gray-200 h-screen w-screen">
+    <div className="bg-gray-200 h-full w-screen pb-10">
       <div>
-        <ul className="flex gap-1 w-screen text-base font-normal border-b border-gray-300 pt-4 px-4 h-[56px] fixed">
+        <ul className="flex gap-1 w-screen text-base font-normal border-b border-gray-300 pt-4 px-4 h-[56px] fixed bg-gray-200">
           <li className="text-center w-[124px] hover:font-medium hover:border-b-2 hover:border-black duration-300 cursor-pointer active:scale-95">
             Бүтээгдэхүүн
           </li>
@@ -139,7 +147,8 @@ export const ProductList = () => {
             {products.map((data, index) => (
               <tr
                 key={data._id}
-                className="flex text-sm text-[#3F4145] font-normal">
+                className="flex text-sm text-[#3F4145] font-normal"
+              >
                 <td className="w-[68px] flex justify-center items-center">
                   <input type="checkbox" />
                 </td>
@@ -150,7 +159,7 @@ export const ProductList = () => {
                   {data.productName}
                 </td>
                 <td className="w-[156.8px] h-[44px] flex justify-start items-center">
-                  {data.price}
+                  {data.price}₮
                 </td>
                 <td className="w-[156.8px] h-[44px] flex justify-start items-center">
                   {data.price}
@@ -172,9 +181,7 @@ export const ProductList = () => {
                     src="/assets/icons/edit.svg"
                     alt=""
                     className="cursor-pointer hover:scale-[1.3] duration-200"
-                    // onClick={() => {
-                    //   router.push({ pathname: "/product", query: { _id } });
-                    // }}
+                    onClick={(e) => handleEdit(data._id, index)}
                   />
                 </td>
               </tr>

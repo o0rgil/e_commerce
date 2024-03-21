@@ -28,8 +28,8 @@ export default function footer() {
         </div>
       </div>
 
-      <div className="flex flex-col bg-white">
-        <div className="flex justify-between py-10 px-[130px]">
+      <div className="flex justify-center">
+        <div className="flex justify-between py-10 w-[1180px]">
           <div className="flex flex-col gap-[15px] w-[276px]">
             <img className="w-[150px]" src="assets/icons/logo.svg" alt="" />
 
@@ -121,8 +121,10 @@ export default function footer() {
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="flex justify-between py-10 px-[130px] bg-gray-200">
+      <div className="bg-gray-200 flex justify-center">
+        <div className="flex justify-between py-10 w-[1180px]">
           <p className="text-[#606060]">© 2023 Ecommerce</p>
 
           <select className="bg-gray-200 text-[#606060]" name="" id="">
