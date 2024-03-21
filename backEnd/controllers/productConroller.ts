@@ -48,34 +48,22 @@ export const productCreate = async (req: Request, res: Response) => {
 
 // Updating Products ===================================================
 export const productUpdate = async (req: Request, res: Response) => {
-  const {
-    _id,
-    productName,
-    productNumber,
-    price,
-    qty,
-    images,
-    description,
-    viewsCount,
-    createdAt,
-  } = req.body;
+  const _id = req.params.id;
+  const { name, desc, categoryid, price, qnty, img } = req.body;
 
   try {
-    await Product.findOneAndUpdate(
-      { _id },
-      {
-        $set: {
-          productName,
-          productNumber,
-          price,
-          qty,
-          images,
-          description,
-          viewsCount,
-          createdAt,
-        },
-      }
-    );
+    const existingProduct = await Product.findById(_id);
+    if (!existingProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    await Product.findByIdAndUpdate(_id, {
+      productName: name,
+      description: desc,
+      categoryId: categoryid,
+      price: price,
+      qty: qnty,
+      img: img,
+    });
 
     res.status(200).send({ message: "Product updated successfully" });
   } catch (error) {
