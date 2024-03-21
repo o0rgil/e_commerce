@@ -17,11 +17,7 @@ const productSchema = new Schema({
     type: Number,
   },
   images: {
-<<<<<<< HEAD
     type: [String],
-=======
-    type: [],
->>>>>>> main
     required: [true, "Please check image"],
   },
   description: {
