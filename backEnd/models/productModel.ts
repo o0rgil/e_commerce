@@ -5,6 +5,7 @@ const productSchema = new Schema({
     type: String,
     required: [true, "Please check name"],
   },
+
   categoryId: {
     type: String,
     required: [true],
@@ -15,9 +16,6 @@ const productSchema = new Schema({
   },
   qty: {
     type: Number,
-  },
-  thumbnails: {
-    type: String,
   },
   images: {
     type: String,

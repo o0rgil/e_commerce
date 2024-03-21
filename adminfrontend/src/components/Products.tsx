@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import React from "react";
 import { useState } from "react";
 
@@ -30,6 +31,7 @@ export const Products = () => {
       });
     } catch (error) {}
   };
+
 
   return (
     <div>
