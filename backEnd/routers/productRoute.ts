@@ -2,7 +2,7 @@ import { Router } from "express";
 import upload from "../middleware/multer";
 import {
   product,
-  productCreate,
+  // productCreate,
   productDelete,
   productUpdate,
 } from "../controllers/productConroller";

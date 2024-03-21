@@ -2,8 +2,8 @@ import React from "react";
 
 export default function header() {
   return (
-    <div className="bg-white flex flex-col text-black">
-      <div className="px-[130px] py-5 flex justify-between border-b-[1px] border-gray-200">
+    <div className="bg-white flex flex-col text-black items-center">
+      <div className="w-[1180px] py-5 flex justify-between border-b-[1px] border-gray-200">
         <img src="assets/icons/logo.svg" alt="" />
 
         <div className="flex h-10 border-[1px] border-[#0D6EFD] rounded-[6px]">
@@ -45,7 +45,7 @@ export default function header() {
         </div>
       </div>
 
-      <div className="px-[130px] py-5 flex justify-between">
+      <div className="w-[1180px] py-5 flex justify-between">
         <div className="flex gap-[6px]">
           <img src="assets/icons/hamburger.svg" alt="" />
 

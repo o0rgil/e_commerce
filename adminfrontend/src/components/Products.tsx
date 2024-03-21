@@ -190,11 +190,7 @@ export const Products = () => {
           </div>
         </div>
 
-        <div className="flex justify-end p-8 gap-6">
-          <button className="py-4 px-5 rounded-[8px] bg-white border-[1px] border-[#D6D8DB]">
-            Ноорог
-          </button>
-
+        <div className="flex justify-end p-8">
           <button
             onClick={addProduct}
             className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white"
