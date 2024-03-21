@@ -1,3 +1,4 @@
+import { instance } from "@/instance";
 import Link from "next/link";
 
 import React from "react";
@@ -6,30 +7,41 @@ import { useState } from "react";
 export const Products = () => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [categoryId, setCategoryId] = useState("");
-  const [img, setImg] = useState([]);
-  const [qty, setQty] = useState("");
+  const [price, setPrice] = useState();
+  const [productNumber, setProductNumber] = useState();
+  const [images, setImages] = useState();
+  const [qty, setQty] = useState();
 
-  const addProduct = async () => {
+  const addProduct = async (e: any) => {
     try {
       const input = {
         productName: productName,
         description: description,
         price: price,
-        categoryId: categoryId,
+        productNumber: productNumber,
         qty: qty,
-        img: img,
       };
 
-      console.log(input);
+      if (
+        !images ||
+        !productName ||
+        !description ||
+        !price ||
+        !productNumber ||
+        !qty
+      )
+        return;
+      console.log("wtf", input);
 
-      const res = await fetch("http://localhost:8080/productCreate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(input),
-      });
-    } catch (error) {}
+      const formData = new FormData();
+      formData.append("input", JSON.stringify(input));
+      formData.append("image", images);
+      await instance.post("/productCreate", formData);
+
+      console.log("first", formData);
+    } catch (error) {
+      console.log("hhhhe");
+    }
   };
 
   return (
@@ -67,7 +79,7 @@ export const Products = () => {
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-semibold">Барааны код</p>
                 <input
-                  onChange={(e) => setCategoryId(e.target.value)}
+                  onChange={(e) => setProductNumber(e.target.value)}
                   placeholder="#12345678"
                   className="bg-[#F7F7F8] p-2 rounded-[8px]"
                   type="text"
@@ -89,16 +101,32 @@ export const Products = () => {
                       type="file"
                       className=""
                       id="avatar"
-                      onChange={(e: any) => setImg(e.target.files[0])}
+                      onChange={(e) => {
+                        setImages(e.target.files[0]);
+                      }}
                     />
                   </label>
                   <label className="cursor-pointer w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/addedImage.svg" alt="" />
-                    <input hidden type="file" className="" />
+                    <input
+                      hidden
+                      type="file"
+                      className=""
+                      onChange={(e) => {
+                        setImages(e.target.files[0]);
+                      }}
+                    />
                   </label>
                   <label className="cursor-pointer w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/addedImage.svg" alt="" />
-                    <input hidden type="file" className="" />
+                    <input
+                      hidden
+                      type="file"
+                      className=""
+                      onChange={(e) => {
+                        setImages(e.target.files[0]);
+                      }}
+                    />
                   </label>
                   <button>
                     <img src="assets/icons/add.svg" alt="" />

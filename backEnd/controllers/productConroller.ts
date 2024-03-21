@@ -32,6 +32,8 @@ export const productCreate = async (req: Request, res: Response) => {
   // };
   console.log("files", req.files);
   // console.log("files", req.files[0].image);
+  const parsedInput = JSON.parse(req.body.input);
+
   try {
     let uploadedImages = [];
     const files = req.files as Express.Multer.File[];
@@ -43,21 +45,15 @@ export const productCreate = async (req: Request, res: Response) => {
         return uploadedImage.secure_url;
       })
     );
-    console.log("image", uploadedImages);
 
     const newProduct = await Product.create({
-      productName,
-      categoryId,
-      price,
-      qty,
+      productName: parsedInput.productName,
+      productNumber: parsedInput.productNumber,
+      price: parsedInput.price,
+      qty: parsedInput.qty,
       images: uploadedImages,
-      coupon,
-      salePercent,
-      description,
-      viewsCount,
-      createdAt,
+      description: parsedInput.description,
     });
-
     console.log("Successfully created", newProduct);
     return res.status(201).json({ message: "Created", product: newProduct });
   } catch (error) {
@@ -71,12 +67,10 @@ export const productUpdate = async (req: Request, res: Response) => {
   const {
     _id,
     productName,
-    categoryId,
+    productNumber,
     price,
     qty,
     images,
-    coupon,
-    salePercent,
     description,
     viewsCount,
     createdAt,
@@ -88,12 +82,10 @@ export const productUpdate = async (req: Request, res: Response) => {
       {
         $set: {
           productName,
-          categoryId,
+          productNumber,
           price,
           qty,
           images,
-          coupon,
-          salePercent,
           description,
           viewsCount,
           createdAt,
