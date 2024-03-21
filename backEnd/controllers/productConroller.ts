@@ -16,23 +16,6 @@ export const product = async (req: Request, res: Response) => {
 // Creating Products ===================================================
 
 export const productCreate = async (req: Request, res: Response) => {
-  const {
-    productName,
-    categoryId,
-    price,
-    qty,
-    coupon,
-    salePercent,
-    description,
-    viewsCount,
-    createdAt,
-  } = req.body;
-  // console.log("body", req.body);
-  // const { image } = req.files as {
-  //   [fieldname: string]: Express.Multer.File[];
-  // };
-  console.log("files", req.files);
-  // console.log("files", req.files[0].image);
   const parsedInput = JSON.parse(req.body.input);
 
   try {
@@ -46,7 +29,6 @@ export const productCreate = async (req: Request, res: Response) => {
         return uploadedImage.secure_url;
       })
     );
-
 
     const newProduct = await Product.create({
       productName: parsedInput.productName,
@@ -94,8 +76,6 @@ export const productUpdate = async (req: Request, res: Response) => {
         },
       }
     );
-
-
 
     res.status(200).send({ message: "Product updated successfully" });
   } catch (error) {

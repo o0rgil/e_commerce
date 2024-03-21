@@ -39,7 +39,6 @@ export const Products = () => {
         qty: qty,
       };
 
-
       if (
         !images ||
         !productName ||
@@ -60,7 +59,6 @@ export const Products = () => {
     } catch (error) {
       console.log("hhhhe");
     }
-
   };
 
   // Fetching data to update it =======================================
@@ -181,8 +179,7 @@ export const Products = () => {
                 <div className="flex gap-6 justify-between">
                   <label
                     id="avatarLable"
-                    className=" cursor-pointer w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center"
-                  >
+                    className=" cursor-pointer w-1/3 h-[125px] border-dashed border-gray-200 border-2 rounded-2xl flex justify-center items-center">
                     <img src="assets/icons/addedImage.svg" alt="" />
                     <input
                       hidden
@@ -328,15 +325,13 @@ export const Products = () => {
           {update ? (
             <button
               onClick={updateProduct}
-              className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white"
-            >
+              className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white">
               Засах
             </button>
           ) : (
             <button
               onClick={addProduct}
-              className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white"
-            >
+              className="py-4 px-5 rounded-[8px] bg-black border-[1px] border-[#D6D8DB] text-white">
               Нийтлэх
             </button>
           )}
