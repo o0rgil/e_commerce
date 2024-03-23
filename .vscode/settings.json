@@ -1,0 +1,6 @@
+{
+    "prettier.insertPragma": true,
+    "prettier.endOfLine": "auto",
+    "prettier.arrowParens": "always",
+    "prettier.bracketSameLine": true
+}

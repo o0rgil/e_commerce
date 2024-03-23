@@ -17,7 +17,10 @@ export const product = async (req: Request, res: Response) => {
 // Creating Products ===================================================
 
 export const productCreate = async (req: Request, res: Response) => {
-  // const parsedInput = JSON.parse(req.body.input);
+
+  const parsedInput = req.body;
+console.log("parsedInput", parsedInput)
+
   try {
     const { bagName, bagCode, price, brand, bagType, colors } = req.body.input;
     // const colors = req.body.colors;
