@@ -5,7 +5,8 @@ const productSchema = new Schema({
     type: String,
     required: [true, "Please check name"],
   },
-  productNumber: {
+
+  categoryId: {
     type: String,
     required: [true],
   },
@@ -17,12 +18,22 @@ const productSchema = new Schema({
     type: Number,
   },
   images: {
-    type: [String],
+    type: String,
     required: [true, "Please check image"],
+  },
+  coupon: {
+    String,
+  },
+  salePercent: {
+    type: Number,
   },
   description: {
     type: String,
     required: [true, "Please check description"],
+  },
+  viewsCount: {
+    type: Number,
+    required: [true, "Please check viewsCount"],
   },
   createdAt: {
     type: Date,
