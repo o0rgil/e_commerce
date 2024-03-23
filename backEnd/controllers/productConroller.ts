@@ -16,8 +16,8 @@ export const product = async (req: Request, res: Response) => {
 // Creating Products ===================================================
 
 export const productCreate = async (req: Request, res: Response) => {
-  const parsedInput = JSON.parse(req.body.input);
-
+  const parsedInput = req.body;
+console.log("parsedInput", parsedInput)
   try {
     let uploadedImages = [];
     const files = req.files as Express.Multer.File[];

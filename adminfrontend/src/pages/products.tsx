@@ -1,6 +1,7 @@
 import React from "react";
 import { LeftNavBar } from "../components/LeftNavBar";
-import { Products } from "../components/Products";
+import { ProducStepOne } from "@/components/ProductStepOne";
+import { ProductStepTwo } from "@/components/ProductStepTwo";
 
 export default function products() {
   return (
@@ -8,7 +9,8 @@ export default function products() {
       <LeftNavBar />
 
       <div className="bg-gray-200 w-screen">
-        <Products />
+        <ProducStepOne />
+        <ProductStepTwo/>
       </div>
     </div>
   );
