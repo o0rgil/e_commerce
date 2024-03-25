@@ -19,7 +19,8 @@ export const TestingProduct = () => {
   const [colorInput, setColorInput] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState("");
+  const [image, setImage] = useState<string[]>([]);
 
   const [bagCode, setBagCode] = useState<string[]>([]);
   const [generatedCode, setGeneratedCode] = useState("");
@@ -31,11 +32,10 @@ export const TestingProduct = () => {
   const handleBack = () => {
     router.push("/productnav");
   };
+
   const handleAddBag = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("images", images);
 
     try {
       const valueInput = {
@@ -43,14 +43,14 @@ export const TestingProduct = () => {
         price,
         brand,
         bagType,
-        bagCode,
         sale,
-        colors,
+        colorsNaraa,
       };
+
       console.log(valueInput, "valueInput");
       console.log("images", images);
       const response = await axios.post(
-        "http://localhost:8080/bag_create",
+        "http://localhost:8080/bagCreate",
         valueInput
       );
       console.log(response.data);
@@ -70,16 +70,24 @@ export const TestingProduct = () => {
 
   const handleColorAdd = () => {
     if (colorInput !== "") {
+      setImages("");
       let newCode = Math.random().toString(16).slice(2, 8);
+      // const formData = new FormData();
+      // formData.append("images", JSON.stringify(images));
       setColorsNaraa((prev) => [
         ...prev,
-        { colorName: colorInput, bagCode: newCode },
+        { colorName: colorInput, bagCode: newCode, images: images },
       ]);
 
+      if (setImages == setImages) {
+        return;
+      }
       setColors((prev) => [...prev, colorInput]);
       setColorInput("");
+      setImage((prev) => [...prev, images]);
       setGeneratedCode(newCode);
       setBagCode((prev) => [...prev, newCode]);
+
       //   setGeneratedCode("");
     } else {
       return;
@@ -155,25 +163,6 @@ export const TestingProduct = () => {
             </select>
           </label>
 
-          {/* <label className="flex justify-between">
-            Bag Code:
-            <input
-              type="text"
-              value={bagCode}
-              onChange={(e) => setBagCode(e.target.value)}
-              className="border px-2"
-            />
-          </label> */}
-          {/* <label className="flex justify-between">
-            Coupon:
-            <input
-              type="text"
-              value={coupon}
-              onChange={(e) => setCoupon(e.target.value)}
-              className="border px-2"
-            />
-          </label> */}
-
           <label className="flex justify-between">
             Sale:
             <input
@@ -192,6 +181,36 @@ export const TestingProduct = () => {
                 value={colorInput}
                 onChange={(e) => setColorInput(e.target.value)}
                 className="border w-[150px] px-2"
+              />
+              <input
+                onChange={(e: any) => {
+                  setImages((prev) => [...prev, e.target.value]);
+                }}
+                type="file"
+                accept="image"
+                multiple
+                name=""
+                id=""
+              />
+              <input
+                onChange={(e: any) => {
+                  setImages((prev) => [...prev, e.target.value]);
+                }}
+                type="file"
+                accept="image"
+                multiple
+                name=""
+                id=""
+              />
+              <input
+                onChange={(e: any) => {
+                  setImages((prev) => [...prev, e.target.value]);
+                }}
+                type="file"
+                accept="image"
+                multiple
+                name=""
+                id=""
               />
 
               <button
@@ -214,36 +233,6 @@ export const TestingProduct = () => {
                     </li>
                     <li>{images}</li>
                   </div>
-                  <input
-                    onChange={(e: any) => {
-                      setImages((prev) => [...prev, e.target.value]);
-                    }}
-                    type="file"
-                    accept="image"
-                    multiple
-                    name=""
-                    id=""
-                  />
-                  <input
-                    onChange={(e: any) => {
-                      setImages((prev) => [...prev, e.target.value]);
-                    }}
-                    type="file"
-                    accept="image"
-                    multiple
-                    name=""
-                    id=""
-                  />
-                  <input
-                    onChange={(e: any) => {
-                      setImages((prev) => [...prev, e.target.value]);
-                    }}
-                    type="file"
-                    accept="image"
-                    multiple
-                    name=""
-                    id=""
-                  />
 
                   <button
                     className=""

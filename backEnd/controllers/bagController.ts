@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 import cloudinary from "../utils/cloudinary";
 
 export const bagCreate = async (req: Request, res: Response) => {
-  const { bagName, price, brand, bagType, bagCode, coupon, sale, colors } =
+  const { bagName, price, brand, bagType, colorsNaraa, sale, colors } =
     req.body;
   console.log(req.body);
   try {
@@ -17,14 +17,13 @@ export const bagCreate = async (req: Request, res: Response) => {
       price,
       brand,
       bagType,
-      coupon,
       sale,
       // Array руу өнгөнүүдийг хийхэд бэлэн болгоно
       colors: [],
     });
     // newBag-н ID-г нь тусад нь авч байна
     newBagId = newBag._id;
-
+    const colors = colorsNaraa;
     for (const color of colors) {
       let uploadedImages = [];
       const files = req.files as Express.Multer.File[];
@@ -39,9 +38,9 @@ export const bagCreate = async (req: Request, res: Response) => {
         })
       );
       let createColor = await Color.create({
-        color,
+        color: colorsNaraa.color,
         bagId: newBagId,
-        bagCode,
+        bagCode: colorsNaraa.bagCode,
         images: uploadedImages,
       });
       colorIds.push(createColor._id);
