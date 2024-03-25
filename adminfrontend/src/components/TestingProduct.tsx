@@ -18,6 +18,7 @@ export const TestingProduct = () => {
   const [colorInput, setColorInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
+  const [generatedCode, setGeneratedCode] = useState<string[]>([]);
 
   const handleBack = () => {
     router.push("/productnav");
@@ -70,11 +71,13 @@ export const TestingProduct = () => {
     const newImages = Array.from(imageFile);
     setImages([...images, ...newImages]);
   };
+  var generateCode = Math.random().toString(16).slice(2).toString();
 
   const handleColorDelete = (index: number) => {
     const updatedColors = [...colors];
     updatedColors.splice(index, 1); // Remove the color at the specified index
     setColors(updatedColors);
+    setGeneratedCode(generateCode);
   };
 
   return (
@@ -88,7 +91,7 @@ export const TestingProduct = () => {
       {loading ? (
         <Loadingpage />
       ) : (
-        <form className="flex flex-col bg-white w-[400px] justify-center p-8 gap-2 items-between mt-12 rounded-xl">
+        <form className="flex flex-col bg-white w-[800px] justify-center p-8 gap-2 items-between mt-12 rounded-xl">
           <label className="flex justify-between">
             Bag Name:
             <input
@@ -134,24 +137,6 @@ export const TestingProduct = () => {
             </select>
           </label>
           <label className="flex justify-between">
-            Bag Code:
-            <input
-              type="text"
-              value={bagCode}
-              onChange={(e) => setBagCode(e.target.value)}
-              className="border px-2"
-            />
-          </label>
-          <label className="flex justify-between">
-            Coupon:
-            <input
-              type="text"
-              value={coupon}
-              onChange={(e) => setCoupon(e.target.value)}
-              className="border px-2"
-            />
-          </label>
-          <label className="flex justify-between">
             Sale:
             <input
               type="number"
@@ -162,12 +147,23 @@ export const TestingProduct = () => {
           </label>
           <label>
             Colors:
-            <div className="flex justify-between">
+            <div className="flex flex-col justify-between">
               <input
                 type="text"
                 value={colorInput}
                 onChange={(e) => setColorInput(e.target.value)}
                 className="border w-[150px] px-2"
+              />
+
+              <input
+                type="file"
+                accept="image"
+                onChange={(e: any) => {
+                  setImages(e.target);
+                }}
+                multiple
+                name=""
+                id=""
               />
               <button
                 onClick={handleColorAdd}
@@ -182,6 +178,12 @@ export const TestingProduct = () => {
                   key={index}
                   className="flex items-center justify-between w-[160px]">
                   {color}
+                  {generatedCode.map((code) => {
+                    code: {
+                      code;
+                    }
+                  })}
+
                   <button
                     className=""
                     type="button"
@@ -192,21 +194,9 @@ export const TestingProduct = () => {
               ))}
             </ul>
             <div className="flex justify-between mt-2">
-              <input
-                type="file"
-                accept="image"
-                onChange={handleImageChange}
-                multiple
-                name=""
-                id=""
-              />
               <ul>
                 {images.map((image, index) => (
-                  <img
-                    src={URL.createObjectURL(image)}
-                    key={index}
-                    alt={`Image ${index}`}
-                  />
+                  <p>{images}</p>
                 ))}
               </ul>
             </div>
