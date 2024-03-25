@@ -10,6 +10,10 @@ export default function products() {
       <LeftNavBar />
 
       <div className="bg-gray-200 w-screen">
+
+        <ProducStepOne />
+        <ProductStepTwo />
+
         <TestingProduct />
       </div>
     </div>
