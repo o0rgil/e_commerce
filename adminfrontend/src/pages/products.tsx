@@ -8,12 +8,7 @@ export default function products() {
   return (
     <div className="flex">
       <LeftNavBar />
-
       <div className="bg-gray-200 w-screen">
-
-        <ProducStepOne />
-        <ProductStepTwo />
-
         <TestingProduct />
       </div>
     </div>
