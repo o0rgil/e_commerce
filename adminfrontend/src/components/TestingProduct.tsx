@@ -34,6 +34,9 @@ export const TestingProduct = () => {
   const handleAddBag = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("images", images);
+
     try {
       const valueInput = {
         bagName,
@@ -41,11 +44,11 @@ export const TestingProduct = () => {
         brand,
         bagType,
         bagCode,
-        coupon,
         sale,
         colors,
       };
       console.log(valueInput, "valueInput");
+      console.log("images", images);
       const response = await axios.post(
         "http://localhost:8080/bag_create",
         valueInput
@@ -64,17 +67,6 @@ export const TestingProduct = () => {
       setLoading(false);
     }
   };
-
-  [
-    {
-      colorName: "red",
-      colorId: "newCode",
-    },
-    {
-      colorName: "yellow",
-      colorId: "newCode",
-    },
-  ];
 
   const handleColorAdd = () => {
     if (colorInput !== "") {
@@ -223,27 +215,36 @@ export const TestingProduct = () => {
                     <li>{images}</li>
                   </div>
                   <input
+                    onChange={(e: any) => {
+                      setImages((prev) => [...prev, e.target.value]);
+                    }}
                     type="file"
                     accept="image"
-                    onChange={(e: any) => {
-                      setImages((prev) => [...prev, e.target]);
-                    }}
                     multiple
                     name=""
                     id=""
-                    hidden
                   />
                   <input
+                    onChange={(e: any) => {
+                      setImages((prev) => [...prev, e.target.value]);
+                    }}
                     type="file"
                     accept="image"
                     multiple
                     name=""
                     id=""
-                    hidden
                   />
-                  <img src="/assets/icons/addedImage.svg" alt="" />
+                  <input
+                    onChange={(e: any) => {
+                      setImages((prev) => [...prev, e.target.value]);
+                    }}
+                    type="file"
+                    accept="image"
+                    multiple
+                    name=""
+                    id=""
+                  />
 
-                  <input type="file" accept="image" multiple name="" id="" />
                   <button
                     className=""
                     type="button"
