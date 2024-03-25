@@ -20,6 +20,7 @@ export const TestingProduct = () => {
 
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
+  const [generatedCode, setGeneratedCode] = useState<string[]>([]);
 
   const [bagCode, setBagCode] = useState<string[]>([]);
   const [generatedCode, setGeneratedCode] = useState("");
@@ -94,6 +95,7 @@ export const TestingProduct = () => {
     }
   };
 
+
   //   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //     const imageFile = e.target.value;
   //     const newImages = Array.from(imageFile);
@@ -104,6 +106,7 @@ export const TestingProduct = () => {
     const updatedColors = [...colorsNaraa];
     updatedColors.splice(colorIndex, 1);
     setColorsNaraa(updatedColors);
+
   };
 
   return (
@@ -117,7 +120,7 @@ export const TestingProduct = () => {
       {loading ? (
         <Loadingpage />
       ) : (
-        <form className="flex flex-col bg-white w-[400px] justify-center p-8 gap-2 items-between mt-12 rounded-xl">
+        <form className="flex flex-col bg-white w-[800px] justify-center p-8 gap-2 items-between mt-12 rounded-xl">
           <label className="flex justify-between">
             Bag Name:
             <input
@@ -162,6 +165,7 @@ export const TestingProduct = () => {
               <option value="Back pack">Back pack</option>
             </select>
           </label>
+
           {/* <label className="flex justify-between">
             Bag Code:
             <input
@@ -180,6 +184,7 @@ export const TestingProduct = () => {
               className="border px-2"
             />
           </label> */}
+
           <label className="flex justify-between">
             Sale:
             <input
@@ -191,18 +196,21 @@ export const TestingProduct = () => {
           </label>
           <label>
             Colors:
-            <div className="flex justify-between">
+            <div className="flex flex-col justify-between">
               <input
                 type="text"
                 value={colorInput}
                 onChange={(e) => setColorInput(e.target.value)}
                 className="border w-[150px] px-2"
               />
+
               <input
                 type="file"
                 accept="image"
                 onChange={(e: any) => {
+
                   setImages((prev) => [...prev, e.target]);
+
                 }}
                 multiple
                 name=""
@@ -220,6 +228,7 @@ export const TestingProduct = () => {
                 <li
                   key={colorIndex + colorName}
                   className="flex items-center justify-between w-[160px]">
+
                   {colorName}
                   <div>
                     <p className="text-[10px] text-gray-500">Bag code:</p>
@@ -228,6 +237,7 @@ export const TestingProduct = () => {
                     </li>
                     <li>{images}</li>
                   </div>
+
                   <button
                     className=""
                     type="button"
@@ -239,6 +249,7 @@ export const TestingProduct = () => {
             </ul>
             <div className="flex justify-between mt-2">
               <ul>
+
                 {/* {images.map((image, index) => (
                   <img
                     src={URL.createObjectURL(image)}
@@ -246,6 +257,7 @@ export const TestingProduct = () => {
                     alt={`Image ${index}`}
                   />
                 ))} */}
+
               </ul>
             </div>
           </label>
