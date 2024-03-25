@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Loadingpage from "../pages/loading";
 import { useRouter } from "next/router";
@@ -11,13 +11,22 @@ export const TestingProduct = () => {
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
   const [bagType, setBagType] = useState("");
-  const [bagCode, setBagCode] = useState("");
+
   const [coupon, setCoupon] = useState("");
   const [sale, setSale] = useState("");
+
   const [colors, setColors] = useState<string[]>([]);
   const [colorInput, setColorInput] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
+
+  const [bagCode, setBagCode] = useState<string[]>([]);
+  const [generatedCode, setGeneratedCode] = useState("");
+
+  const [colorsNaraa, setColorsNaraa] = useState<
+    { colorName: string; bagCode: string }[]
+  >([]);
 
   const handleBack = () => {
     router.push("/productnav");
@@ -45,7 +54,7 @@ export const TestingProduct = () => {
       alert(response.data.message);
       setBagName("");
       setPrice("");
-      setBagCode("");
+      //   setBagCode("");
       setCoupon("");
       setSale("");
     } catch (error) {
@@ -56,25 +65,45 @@ export const TestingProduct = () => {
     }
   };
 
+  [
+    {
+      colorName: "red",
+      colorId: "newCode",
+    },
+    {
+      colorName: "yellow",
+      colorId: "newCode",
+    },
+  ];
+
   const handleColorAdd = () => {
     if (colorInput !== "") {
-      setColors([...colors, colorInput]);
+      let newCode = Math.random().toString(16).slice(2, 8);
+      setColorsNaraa((prev) => [
+        ...prev,
+        { colorName: colorInput, bagCode: newCode },
+      ]);
+
+      setColors((prev) => [...prev, colorInput]);
       setColorInput("");
+      setGeneratedCode(newCode);
+      setBagCode((prev) => [...prev, newCode]);
+      //   setGeneratedCode("");
     } else {
       return;
     }
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const imageFile = e.target.value;
-    const newImages = Array.from(imageFile);
-    setImages([...images, ...newImages]);
-  };
+  //   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     const imageFile = e.target.value;
+  //     const newImages = Array.from(imageFile);
+  //     setImages([...images, ...newImages]);
+  //   };
 
-  const handleColorDelete = (index: number) => {
-    const updatedColors = [...colors];
-    updatedColors.splice(index, 1); // Remove the color at the specified index
-    setColors(updatedColors);
+  const handleColorDelete = (colorIndex: number) => {
+    const updatedColors = [...colorsNaraa];
+    updatedColors.splice(colorIndex, 1);
+    setColorsNaraa(updatedColors);
   };
 
   return (
@@ -133,7 +162,7 @@ export const TestingProduct = () => {
               <option value="Back pack">Back pack</option>
             </select>
           </label>
-          <label className="flex justify-between">
+          {/* <label className="flex justify-between">
             Bag Code:
             <input
               type="text"
@@ -141,8 +170,8 @@ export const TestingProduct = () => {
               onChange={(e) => setBagCode(e.target.value)}
               className="border px-2"
             />
-          </label>
-          <label className="flex justify-between">
+          </label> */}
+          {/* <label className="flex justify-between">
             Coupon:
             <input
               type="text"
@@ -150,7 +179,7 @@ export const TestingProduct = () => {
               onChange={(e) => setCoupon(e.target.value)}
               className="border px-2"
             />
-          </label>
+          </label> */}
           <label className="flex justify-between">
             Sale:
             <input
@@ -169,6 +198,16 @@ export const TestingProduct = () => {
                 onChange={(e) => setColorInput(e.target.value)}
                 className="border w-[150px] px-2"
               />
+              <input
+                type="file"
+                accept="image"
+                onChange={(e: any) => {
+                  setImages((prev) => [...prev, e.target]);
+                }}
+                multiple
+                name=""
+                id=""
+              />
               <button
                 onClick={handleColorAdd}
                 type="button"
@@ -177,37 +216,36 @@ export const TestingProduct = () => {
               </button>
             </div>
             <ul>
-              {colors.map((color, index) => (
+              {colorsNaraa.map(({ colorName, bagCode }, colorIndex) => (
                 <li
-                  key={index}
+                  key={colorIndex + colorName}
                   className="flex items-center justify-between w-[160px]">
-                  {color}
+                  {colorName}
+                  <div>
+                    <p className="text-[10px] text-gray-500">Bag code:</p>
+                    <li>
+                      <div>{bagCode}</div>
+                    </li>
+                    <li>{images}</li>
+                  </div>
                   <button
                     className=""
                     type="button"
-                    onClick={() => handleColorDelete(index)}>
+                    onClick={() => handleColorDelete(colorIndex)}>
                     <i className="fa-solid fa-trash text-gray-400 text-sm"></i>
                   </button>
                 </li>
               ))}
             </ul>
             <div className="flex justify-between mt-2">
-              <input
-                type="file"
-                accept="image"
-                onChange={handleImageChange}
-                multiple
-                name=""
-                id=""
-              />
               <ul>
-                {images.map((image, index) => (
+                {/* {images.map((image, index) => (
                   <img
                     src={URL.createObjectURL(image)}
                     key={index}
                     alt={`Image ${index}`}
                   />
-                ))}
+                ))} */}
               </ul>
             </div>
           </label>
