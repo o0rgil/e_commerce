@@ -1,7 +1,10 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Loadingpage from "../pages/loading";
 
 const BASE_URL = "http://localhost:8080";
 interface Product {
@@ -16,17 +19,21 @@ interface Product {
 export const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const router = useRouter();
+  const [loading, setloading] = useState(false);
 
   // Fetching Products from DB Scene ==============
   const fetchProducts = async () => {
+    setloading(true);
     // console.log("first");
     try {
-      const response = await axios.get("http://localhost:8080/product");
-      setProducts(response.data.product);
+      const response = await axios.get("http://localhost:8080/bag");
+      setProducts(response.data.bag);
       console.log(response.data);
       console.log("products", products);
     } catch (error) {
       console.error(error);
+    } finally {
+      setloading(false);
     }
   };
 
@@ -56,6 +63,15 @@ export const ProductList = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  // Date Formating Scene =============================
+  const formatDate = (dataString: string) => {
+    const date = new Date(dataString);
+    const formattedDate = `${date.getFullYear()}/${
+      date.getMonth() + 1
+    }/${date.getDate()}-${date.getHours()}:${date.getMinutes()}`;
+    return formattedDate;
   };
 
   return (
@@ -122,10 +138,10 @@ export const ProductList = () => {
             <tr className="flex h-[44px] text-xs font-semibold">
               <th className="w-[68px]"></th>
               <th className="w-[156.8px] h-[44px] flex justify-start items-center">
-                Бүтээгдэхүүн
+                Цүнхний нэр
               </th>
-              <th className="w-[214px] h-[44px] flex justify-start items-center">
-                Ангилал
+              <th className="w-[156.8px] h-[44px] flex justify-start items-center">
+                Брэнд
               </th>
               <th className="w-[156.8px] h-[44px] flex justify-start items-center">
                 Үнэ
@@ -133,8 +149,8 @@ export const ProductList = () => {
               <th className="w-[156.8px] h-[44px] flex justify-start items-center">
                 Үлдэгдэл
               </th>
-              <th className="w-[156.8px] h-[44px] flex justify-start items-center">
-                Зарагдсан
+              <th className="w-[214px] h-[44px] flex justify-start items-center">
+                Өнгө
               </th>
               <th className="w-[156.8px] h-[44px] flex justify-start items-center">
                 Нэмсэн огноо
@@ -144,48 +160,57 @@ export const ProductList = () => {
           </thead>
 
           <tbody>
-            {products.map((data, index) => (
-              <tr
-                key={data._id}
-                className="flex text-sm text-[#3F4145] font-normal"
-              >
-                <td className="w-[68px] flex justify-center items-center">
-                  <input type="checkbox" />
-                </td>
-                <td className="w-[156.8px] h-[44px] flex justify-start items-center">
-                  <img src={data.thumbnails} alt="" />
-                </td>
-                <td className="w-[214px] h-[44px] flex justify-start items-center">
-                  {data.productName}
-                </td>
-                <td className="w-[156.8px] h-[44px] flex justify-start items-center">
-                  {data.price}₮
-                </td>
-                <td className="w-[156.8px] h-[44px] flex justify-start items-center">
-                  {data.price}
-                </td>
-                <td className="w-[156.8px] h-[44px] flex justify-start items-center">
-                  {data.qty}
-                </td>
-                <td className="w-[156.8px] h-[44px] flex justify-start items-center">
-                  {data.createdAt}
-                </td>
-                <td className="w-[156.8px] h-[44px] flex justify-start items-center gap-[10.5px]">
-                  <img
-                    src="/assets/icons/delete.svg"
-                    alt=""
-                    className="cursor-pointer hover:scale-[1.3] duration-200"
-                    onClick={(e) => handleDelete(data._id, index)}
-                  />
-                  <img
-                    src="/assets/icons/edit.svg"
-                    alt=""
-                    className="cursor-pointer hover:scale-[1.3] duration-200"
-                    onClick={(e) => handleEdit(data._id, index)}
-                  />
-                </td>
-              </tr>
-            ))}
+            {loading ? (
+              <Loadingpage />
+            ) : (
+              <>
+                {products.map((bag, index) => (
+                  <tr
+                    key={bag._id}
+                    className="flex text-sm text-[#3F4145] font-normal">
+                    <td className="w-[68px] flex justify-center items-center">
+                      <input type="checkbox" />
+                    </td>
+                    <td className="w-[156.8px] h-[44px] flex justify-start items-center">
+                      {bag.bagName}
+                    </td>
+                    <td className="w-[156.8px] h-[44px] flex justify-start items-center">
+                      {bag.brand}
+                    </td>
+                    <td className="w-[156.8px] h-[44px] flex justify-start items-center">
+                      {bag.price}₮
+                    </td>
+                    <td className="w-[156.8px] h-[44px] flex justify-start items-center">
+                      {bag.price}
+                    </td>
+                    <td className="w-[214px] h-[44px] flex justify-start items-center ">
+                      <ul className="flex text-xs gap-1">
+                        {bag.colors.map((color, index) => (
+                          <li key={index}>{color.color},</li>
+                        ))}
+                      </ul>
+                    </td>
+                    <td className="w-[156.8px] h-[44px] flex justify-start items-center">
+                      {formatDate(bag.CreatedAt)}
+                    </td>
+                    <td className="w-[156.8px] h-[44px] flex justify-start items-center gap-[10.5px]">
+                      <img
+                        src="/assets/icons/delete.svg"
+                        alt=""
+                        className="cursor-pointer hover:scale-[1.3] duration-200"
+                        onClick={(e) => handleDelete(data._id, index)}
+                      />
+                      <img
+                        src="/assets/icons/edit.svg"
+                        alt=""
+                        className="cursor-pointer hover:scale-[1.3] duration-200"
+                        onClick={(e) => handleEdit(data._id, index)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </>
+            )}
           </tbody>
         </table>
       </div>
