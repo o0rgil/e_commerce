@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { NewArrivals } from "./NewArrivals";
 import { BrandsCard } from "./BrandsCard";
