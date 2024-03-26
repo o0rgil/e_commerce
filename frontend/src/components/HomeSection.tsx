@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "./Footer";
 import { NewArrivals } from "./NewArrivals";
 import { BrandsCard } from "./BrandsCard";
 
@@ -35,21 +34,40 @@ export const HomeSection = () => {
       <div className="bg-[#FFFBEE] p-32 flex flex-col items-center justify-center gap-20">
         <p className="text-5xl ">Why To Buy From Us</p>
         <div className=" flex gap-52 ">
-          <div>
+          <div className=" flex flex-col gap-3 justify-center items-center ">
+            <img
+              className=" w-[60px] h-[60px]"
+              src="assets/icons/shipping.svg"
+              alt=""
+            />
             <p> Free Shipping</p>
           </div>
-          <div>
+          <div className=" flex flex-col gap-3 justify-center items-center ">
+            <img
+              className=" w-[60px] h-[60px]"
+              src="assets/icons/card.svg"
+              alt=""
+            />
             <p>Lorem, ipsum dolor.</p>
           </div>
-          <div>
+          <div className=" flex flex-col gap-3 justify-center items-center ">
+            <img
+              className=" w-[60px] h-[60px]"
+              src="assets/icons/clipboard.svg"
+              alt=""
+            />
             <p>Lorem ipsum dolor sit.</p>
           </div>
-          <div>
+          <div className=" flex flex-col gap-3 justify-center items-center ">
+            <img
+              className=" w-[60px] h-[60px]"
+              src="assets/icons/support.svg"
+              alt=""
+            />
             <p>Lorem, ipsum.</p>
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
