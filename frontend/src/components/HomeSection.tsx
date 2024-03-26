@@ -1,6 +1,9 @@
+/** @format */
+
 import React from "react";
 import { NewArrivals } from "./NewArrivals";
 import { BrandsCard } from "./BrandsCard";
+import { Footer } from "./Footer";
 
 export const HomeSection = () => {
   return (
@@ -68,6 +71,7 @@ export const HomeSection = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
