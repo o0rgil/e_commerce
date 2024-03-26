@@ -22,6 +22,7 @@ export const TestingProduct = () => {
   const handleBack = () => {
     router.push("/productnav");
   };
+
   const handleAddBag = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();

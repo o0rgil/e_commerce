@@ -1,82 +1,68 @@
-import React from "react";
+/** @format */
+
+import React, { useContext, useEffect, useState } from "react";
+import { ContactUsBar } from "./ContactUsBar";
+import { ContactVisiblityContext } from "../../contexts/ContactUs";
+import { SearchVisiblityContext } from "../../contexts/SearchUs";
+import { SearchUsBar } from "./SearchUsBar";
 
 export default function header() {
+  const { isContactVisible, setIsContactVisible } = useContext(
+    ContactVisiblityContext
+  );
+
+  const { isSearchVisible, setIsSearchVisible } = useContext(
+    SearchVisiblityContext
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", detectKeyDown, true);
+  }, []);
+
+  const detectKeyDown = (e: any) => {
+    console.log("clicked key : ", e.key);
+  };
+
   return (
-    <div className="bg-white flex flex-col text-black items-center">
-      <div className="w-[1180px] py-5 flex justify-between border-b-[1px] border-gray-200">
-        <img src="assets/icons/logo.svg" alt="" />
-
-        <div className="flex h-10 border-[1px] border-[#0D6EFD] rounded-[6px]">
-          <input
-            className=" w-[421px] rounded-l-[6px] p-[10px]"
-            placeholder="Search"
-            type="text"
-          />
-
-          <select
-            className="p-[10px] w-[145px] border-[1px] border-l-[#0D6EFD]"
-            name=""
-            id=""
-          >
-            <option value="">All category</option>
-          </select>
-
-          <button className="text-white rounded-r-[6px] bg-[#0D6EFD] w-[100px]">
-            Search
+    <div className="w-full flex flex-col h-full absolute ">
+      <div className="justify-between h-[90px] flex w-full items-center">
+        <div className="flex pl-20  gap-5">
+          {/* <button className="flex items-center  gap-2">
+          <img className="w-4 h-4" src="assets/icons/hamburger.svg" alt="" />
+          <p className="text-[#000000] text-xs">Menu</p>
+        </button> */}
+          <button
+            onClick={() => {
+              setIsSearchVisible(true);
+            }}
+            className="flex items-center gap-2">
+            <img className="w-4 h-4" src="assets/icons/search.svg" alt="" />
+            <p className="text-[#000000] text-xs">Search</p>
           </button>
         </div>
-
-        <div className="flex gap-[18px]">
-          <button>
-            <img src="assets/icons/profile.svg" alt="" />
+        <div className=" uppercase justify-center text-4xl">LOUIS VUITTON</div>
+        <div className="pr-20 flex gap-[30px] h-[50px]">
+          <button
+            onClick={() => {
+              setIsContactVisible(true);
+            }}
+            className="text-[#000000] text-xs">
+            Call Us
           </button>
-
+          <button className="text-[#000000] text-xs">Wishlist</button>
           <button>
-            <img src="assets/icons/message.svg" alt="" />
+            <img className="h-4 w-4" src="assets/icons/profile.svg" alt="" />
           </button>
-
-          <button>
-            <img src="assets/icons/orders.svg" alt="" />
-          </button>
-
-          <button>
-            <img src="assets/icons/cart.svg" alt="" />
+          <button className="flex gap-1 justify-center items-center">
+            <img className="w-4 h-4" src="assets/icons/basket.svg" alt="" />
+            <p className="bg-black w-[15px] mb-3 rounded-xl text-white flex text-xs h-[15px] items-center justify-center">
+              0
+            </p>
           </button>
         </div>
       </div>
-
-      <div className="w-[1180px] py-5 flex justify-between">
-        <div className="flex gap-[6px]">
-          <img src="assets/icons/hamburger.svg" alt="" />
-
-          <div className="flex gap-[25px]">
-            <button className="font-medium">All category</button>
-
-            <button className="font-medium">Hot offers</button>
-
-            <button className="font-medium">Gift boxes</button>
-
-            <button className="font-medium">Projects</button>
-
-            <button className="font-medium">Menu item</button>
-
-            <select className="font-medium" name="" id="">
-              <option value="">Help</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="flex gap-9">
-          <select className="font-medium" name="" id="">
-            <option value="">English, USD</option>
-            <option value="">Mongolia, MNT</option>
-          </select>
-
-          <select className="font-medium" name="" id="">
-            <option value="">Ship to</option>
-          </select>
-        </div>
-      </div>
+      {isContactVisible && <ContactUsBar />}
+      {isSearchVisible && <SearchUsBar />}
     </div>
   );
 }
