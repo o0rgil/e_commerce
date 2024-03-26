@@ -17,8 +17,6 @@ const BagSchema: Schema = new Schema({
     required: true,
     enum: ["Hand bag", "Accessory bag", "Travel bag", "Back pack"],
   },
-  bagCode: { type: String, required: true, unique: true },
-  coupon: { type: String },
   sale: { type: Number },
   CreatedAt: { type: Date, default: new Date() },
   UpdatedAt: { type: Date, default: new Date() },
