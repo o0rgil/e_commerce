@@ -39,8 +39,8 @@ const ThreeStepPage = () => {
                 />
               </div>
               <div className="flex justify-between">
-                <button className=" btn rounded-full ">
-                  <Link href="signup">
+                <button>
+                  <Link className=" btn rounded-full " href="signup">
                     <img src="assets/icons/leftArrow.svg" />
                   </Link>
                 </button>
