@@ -2,7 +2,13 @@
 
 import React from "react";
 
+import { useRouter } from "next/router";
+
 export const BrandsCard = () => {
+  const router = useRouter();
+  const handleJumpHermes = () => {
+    router.push("/hermes");
+  };
   return (
     <div>
       <div className=" flex justify-center p-32 gap-16">
@@ -15,12 +21,14 @@ export const BrandsCard = () => {
             />
             <div className="absolute inset-0 flex justify-center font-mono text-base items-end text-white ">
               <div className=" flex flex-col justify-center items-center p-2">
+
                 <p className=" text-black top-2 right-5 absolute h-[40px] text-2xl ">
                   𝓗𝑒𝓇𝓂𝑒𝓈
                 </p>
                 <div className="border p-5 w-[150px] bg-black bg-opacity-50  hover:bg-black hover:bg-opacity-70 flex justify-center items-center  hover:cursor-pointer rounded-md transform translate-y-1 transition duration-700 hover:translate-y-0">
+
                   Shop Now
-                </div>
+                </button>
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ import { ContactVisiblityContext } from "../../contexts/ContactUs";
 import { SearchVisiblityContext } from "../../contexts/SearchUs";
 import { SearchUsBar } from "./SearchUsBar";
 
-export default function header() {
+export default function Header() {
   const { isContactVisible, setIsContactVisible } = useContext(
     ContactVisiblityContext
   );
