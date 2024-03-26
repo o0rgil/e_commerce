@@ -1,136 +1,81 @@
+/** @format */
+
 import React from "react";
 
 export default function footer() {
   return (
-    <div className="text-black">
-      <div className="flex items-center justify-center py-10 bg-gray-200">
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col items-center">
-            <p className="font-semibold text-xl">Subscribe on our newsletter</p>
+    <div className="flex justify-center bg-white text-black text-[12px]">
+      <div className="py-20 flex justify-between">
+        <div className="flex">
+          <div className="flex w-[620px]">
+            <div className="flex flex-col gap-6 w-1/2">
+              <p>MAY WE HELP YOU?</p>
 
-            <p className="text-[#606060]">
-              Get daily news on upcoming offers from manu suppliers all over the
-              world
-            </p>
-          </div>
+              <div className=" flex flex-col gap-6">
+                <u>
+                  <a href="">My Order</a>
+                </u>
+                <u>
+                  <a href="">FAQs</a>
+                </u>
+                <u>
+                  <a href="">Email Unsubscribe</a>
+                </u>
+                <u>
+                  <a href="">Sitemop</a>
+                </u>
+              </div>
+            </div>
 
-          <div className="flex justify-center gap-2">
-            <input
-              className="p-2 rounded-[6px] w-[274px]"
-              placeholder="Email"
-              type="text"
-            />
+            <div className="flex flex-col gap-6 w-1/2">
+              <p>THE COMPANY</p>
 
-            <button className="px-4 bg-[#0D6EFD] text-white rounded-[6px]">
-              Subscribe
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex justify-center">
-        <div className="flex justify-between py-10 w-[1180px]">
-          <div className="flex flex-col gap-[15px] w-[276px]">
-            <img className="w-[150px]" src="assets/icons/logo.svg" alt="" />
-
-            <p className="text-gray-600">
-              Best information about the company gies here but now lorem ipsum
-              is
-            </p>
-
-            <div className="flex gap-[10px]">
-              <img src="assets/icons/facebook.svg" alt="" />
-
-              <img src="assets/icons/twitter.svg" alt="" />
-
-              <img src="assets/icons/linkedin.svg" alt="" />
-
-              <img src="assets/icons/instagram.svg" alt="" />
-
-              <img src="assets/icons/youtube.svg" alt="" />
+              <div className="flex flex-col gap-6 text-[14px]">
+                <u>
+                  <a href="">Gucci</a>
+                </u>
+                <u>
+                  <a href="">Hermes</a>
+                </u>
+                <u>
+                  <a href="">LV</a>
+                </u>
+                <u>
+                  <a href="">Prada</a>
+                </u>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-[10px]">
-            <p className="font-medium">About</p>
+          <div className="w-[620px] flex flex-col gap-12">
+            <div className="flex flex-col gap-6">
+              <p>CONTACT US</p>
 
-            <div className="flex flex-col gap-[3px] items-start">
-              <button className="text-gray-500">About us</button>
-
-              <button className="text-gray-500">Find store</button>
-
-              <button className="text-gray-500">Categories</button>
-
-              <button className="text-gray-500">Blogs</button>
+              <input
+                className="h-[43px] text-[16px] border-b bg-white"
+                placeholder="FEEDBACK"
+                type="text"
+              />
             </div>
-          </div>
-
-          <div className="flex flex-col gap-[10px]">
-            <p className="font-medium">Partnership</p>
-
-            <div className="flex flex-col gap-[3px] items-start">
-              <button className="text-gray-500">About us</button>
-
-              <button className="text-gray-500">Find store</button>
-
-              <button className="text-gray-500">Categories</button>
-
-              <button className="text-gray-500">Blogs</button>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-[10px]">
-            <p className="font-medium">Information</p>
-
-            <div className="flex flex-col gap-[3px] items-start">
-              <button className="text-gray-500">Help Center</button>
-
-              <button className="text-gray-500">Money Refund</button>
-
-              <button className="text-gray-500">Shipping</button>
-
-              <button className="text-gray-500">Contact us</button>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-[10px]">
-            <p className="font-medium">For users</p>
-
-            <div className="flex flex-col gap-[3px] items-start">
-              <button className="text-gray-500">Login</button>
-
-              <button className="text-gray-500">Register</button>
-
-              <button className="text-gray-500">Settings</button>
-
-              <button className="text-gray-500">My Orders</button>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-[10px]">
-            <p className="font-medium">Get app</p>
 
             <div className="flex flex-col gap-2">
-              <button>
-                <img src="assets/icons/appStore.svg" alt="" />
-              </button>
+              <div className="flex items-center justify-center gap-2 border-b">
+                <input
+                  className="text-[16px] bg-white text-white w-[600px] h-[43px]"
+                  placeholder="Email"
+                  type="text"
+                />
 
-              <button>
-                <img src="assets/icons/playStore.svg" alt="" />
-              </button>
+                <button>
+                  <img className="w-6 h-6" src="assets/send.svg" alt="" />
+                </button>
+              </div>
+
+              <p className="text-[10px]">
+                We will reply to your email after receiving your feedback.
+              </p>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="bg-gray-200 flex justify-center">
-        <div className="flex justify-between py-10 w-[1180px]">
-          <p className="text-[#606060]">© 2023 Ecommerce</p>
-
-          <select className="bg-gray-200 text-[#606060]" name="" id="">
-            <option value="">English</option>
-            <option value="">Mongolia</option>
-          </select>
         </div>
       </div>
     </div>
