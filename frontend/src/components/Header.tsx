@@ -15,16 +15,8 @@ export default function Header() {
     SearchVisiblityContext
   );
 
-  useEffect(() => {
-    document.addEventListener("keydown", detectKeyDown, true);
-  }, []);
-
-  const detectKeyDown = (e: any) => {
-    console.log("clicked key : ", e.key);
-  };
-
   return (
-    <div className="w-full flex flex-col h-full absolute ">
+    <div className="w-full flex flex-col h-full  ">
       <div className="justify-between h-[90px] flex w-full items-center">
         <div className="flex pl-20  gap-5">
           {/* <button className="flex items-center  gap-2">
