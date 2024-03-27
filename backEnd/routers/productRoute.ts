@@ -12,9 +12,10 @@ import {
 import { bagCreate } from "../controllers/bagController";
 
 export const router = Router();
-
+router.route("/bagCreate").post(bagCreate);
 router.route("/bag").get(product);
-router.route("/bagCreate").post(upload.array("images"), bagCreate);
+// router.route("/bagCreate").post(upload.array("images"), bagCreate);
+
 router.route("/productUpdate/:id").put(productUpdate);
 router.route("/productDelete/:id").delete(productDelete);
 // Getting data to edit route=====================================

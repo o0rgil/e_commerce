@@ -19,13 +19,10 @@ export default function Header() {
   );
   const [mainWord, setMainWord] = useState("");
 
-  useEffect(() => {
-    document.addEventListener("keydown", detectKeyDown, true);
-  }, []);
+  return (
 
-  const detectKeyDown = (e: any) => {
-    console.log("clicked key : ", e.key);
-  };
+    <div className="w-full flex flex-col h-full bg-white">
+
 
   const handleLoginPage = () => {
     router.push("/login  ");
@@ -47,6 +44,7 @@ export default function Header() {
 
   return (
     <div className="w-full flex flex-col h-full absolute ">
+
       <div className="justify-between h-[90px] flex w-full items-center">
         <div className="flex pl-20  gap-5">
           <button
