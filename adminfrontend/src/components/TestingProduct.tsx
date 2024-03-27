@@ -11,8 +11,7 @@ export const TestingProduct = () => {
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
   const [bagType, setBagType] = useState("");
-
-  const [coupon, setCoupon] = useState("");
+  // const [coupon, setCoupon] = useState("");
   const [sale, setSale] = useState("");
 
   const [colors, setColors] = useState<string[]>([]);
@@ -49,6 +48,7 @@ export const TestingProduct = () => {
 
       console.log(valueInput, "valueInput");
       console.log("images", images);
+      console.log("colorsNaraa", colorsNaraa);
       const response = await axios.post(
         "http://localhost:8080/bagCreate",
         valueInput
@@ -58,10 +58,10 @@ export const TestingProduct = () => {
       setBagName("");
       setPrice("");
       //   setBagCode("");
-      setCoupon("");
+      // setCoupon("");
       setSale("");
     } catch (error) {
-      alert(error.response.data.message);
+      // alert(error.response.data.message);
       console.error("Error creating bag:", error);
     } finally {
       setLoading(false);
@@ -174,7 +174,6 @@ export const TestingProduct = () => {
           </label>
           <label>
             <p>Colors:</p>
-
             <div className="flex justify-between">
               <input
                 type="text"
@@ -233,7 +232,6 @@ export const TestingProduct = () => {
                     </li>
                     <li>{images}</li>
                   </div>
-
                   <button
                     className=""
                     type="button"
