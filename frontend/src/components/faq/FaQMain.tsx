@@ -24,7 +24,7 @@ export const FaQMain = () => {
 
       <div>
         <div className="flex gap-6">
-          <div className="flex flex-col w-[595px] bg-white rounded-lg">
+          <div className="flex flex-col w-1/2 bg-white rounded-lg">
             <p className="text-[24px] border-b p-8">THEMES</p>
             <FaQTable />
           </div>
