@@ -1,5 +1,7 @@
 /** @format */
 
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 export const Footer = () => {
@@ -16,7 +18,7 @@ export const Footer = () => {
                   <a href="">My Order</a>
                 </u>
                 <u>
-                  <a href="">FAQs</a>
+                  <a href="/faq">FAQs</a>
                 </u>
                 <u>
                   <a href="">Email Unsubscribe</a>

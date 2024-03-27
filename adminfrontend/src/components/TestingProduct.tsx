@@ -75,7 +75,6 @@ export const TestingProduct = () => {
       setColors([]);
       setImages(null);
     } catch (error) {
-
       // alert(error.response.data.message);
 
       console.error("Error creating bag:", error);
@@ -100,7 +99,7 @@ export const TestingProduct = () => {
       const res = await instance.post("/upload", formData, config);
       console.log(res, "Response");
       setUploadedImage01(res.data.imageUrl);
-      alert("Зураг амжилттай Cloudinary-руу орлоо");
+      // alert("Зураг амжилттай Cloudinary-руу орлоо");
     } catch (error) {
       alert("Зураг оруулахад алдаа гарлаа");
     } finally {
@@ -233,6 +232,7 @@ export const TestingProduct = () => {
               value={bagType}
               onChange={(e) => setBagType(e.target.value)}
               className="border cursor pointer">
+              {/* <input type="text" placeholder="hhhhhe" /> */}
               <option value="">Select Bag Type</option>
               <option value="Hand_bag">Hand bag</option>
               <option value="Accessory_bag">Accessory bag</option>
@@ -251,7 +251,6 @@ export const TestingProduct = () => {
             />
           </label>
           <label>
-
             <div className=" border p-4 border-gray-300 border-dashed">
               <p>Colors:</p>
 
@@ -286,7 +285,6 @@ export const TestingProduct = () => {
                       className="opacity-0 absolute w-full h-full bg-black"
                     />
                   </div>
-
 
                   <div className="relative w-[200px] h-[150px] border rounded-xl border-dashed">
                     {imageLoading02 ? (
@@ -352,7 +350,6 @@ export const TestingProduct = () => {
                     <div>
                       <p className="text-[10px] text-gray-500">Bag code:</p>
                       <div>{bagCode}</div>
-
                     </div>
                     <div>
                       <div className="text-[10px] text-gray-500">Images</div>
@@ -374,7 +371,6 @@ export const TestingProduct = () => {
                   </li>
                 )
               )}
-
             </ul>
           </label>
           <button

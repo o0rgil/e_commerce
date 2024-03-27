@@ -33,7 +33,9 @@ export const ContactUsBar = () => {
           <p>Need Help?</p>
         </div>
         <div className="flex flex-col items-start pl-[150px] gap-10 pt-10">
-          <button className="text-xs">FAQ</button>
+          <a href="/faq" className="text-xs">
+            FAQ
+          </a>
           <button className="text-xs">Care Services</button>
           <button className="text-xs">Find a Store</button>
         </div>
