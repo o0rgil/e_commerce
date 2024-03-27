@@ -14,6 +14,9 @@ export const TestingProduct = () => {
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
   const [bagType, setBagType] = useState("");
+
+  // const [coupon, setCoupon] = useState("");
+
   const [sale, setSale] = useState("");
   const [colorInput, setColorInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,7 +56,9 @@ export const TestingProduct = () => {
           images: color.images,
         })),
       };
+
       console.log(bagData, "BagData");
+
       const response = await axios.post(
         "http://localhost:8080/bagCreate",
         bagData
@@ -62,12 +67,17 @@ export const TestingProduct = () => {
       alert(response.data.message);
       setBagName("");
       setPrice("");
+
       setBrand("");
       setBagType("");
+
       setSale("");
       setColors([]);
       setImages(null);
     } catch (error) {
+
+      // alert(error.response.data.message);
+
       console.error("Error creating bag:", error);
     } finally {
       setLoading(false);
@@ -241,6 +251,7 @@ export const TestingProduct = () => {
             />
           </label>
           <label>
+
             <div className=" border p-4 border-gray-300 border-dashed">
               <p>Colors:</p>
 
@@ -275,6 +286,7 @@ export const TestingProduct = () => {
                       className="opacity-0 absolute w-full h-full bg-black"
                     />
                   </div>
+
 
                   <div className="relative w-[200px] h-[150px] border rounded-xl border-dashed">
                     {imageLoading02 ? (
@@ -340,6 +352,7 @@ export const TestingProduct = () => {
                     <div>
                       <p className="text-[10px] text-gray-500">Bag code:</p>
                       <div>{bagCode}</div>
+
                     </div>
                     <div>
                       <div className="text-[10px] text-gray-500">Images</div>
@@ -361,6 +374,7 @@ export const TestingProduct = () => {
                   </li>
                 )
               )}
+
             </ul>
           </label>
           <button
