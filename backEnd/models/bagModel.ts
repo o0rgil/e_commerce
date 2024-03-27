@@ -4,7 +4,7 @@ import { Schema, model } from "mongoose";
 
 // Define the schema for your document
 const BagSchema: Schema = new Schema({
-  bagName: { type: String, required: true },
+  bagName: { type: String },
   colors: [{ type: Schema.Types.ObjectId, ref: "Color", required: true }],
   price: { type: Number, required: true },
   brand: {
@@ -15,7 +15,7 @@ const BagSchema: Schema = new Schema({
   bagType: {
     type: String,
     required: true,
-    enum: ["Hand bag", "Accessory bag", "Travel bag", "Back pack"],
+    enum: ["Hand_bag", "Accessory_bag", "Travel_bag", "Back_pack"],
   },
   sale: { type: Number },
   CreatedAt: { type: Date, default: new Date() },
