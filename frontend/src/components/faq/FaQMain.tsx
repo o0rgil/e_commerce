@@ -26,10 +26,8 @@ export const FaQMain = () => {
         <div className="flex gap-6">
           <div className="flex flex-col w-1/2 bg-white rounded-lg">
             <p className="text-[24px] border-b p-8">THEMES</p>
-
             <FaQTable />
           </div>
-
           <div className="flex flex-col w-1/2 bg-white rounded-lg">
             <p className="p-8 border-b text-[24px]">FREQUENT QUESTIONS</p>
 
@@ -43,11 +41,9 @@ export const FaQMain = () => {
               <button onClick={() => handleComponentChange(3)}>
                 <u>How do I place an order on louisvuitton.com?</u>
               </button>
-              <var>
-                <button onClick={() => handleComponentChange(4)}>
-                  <u>How can I repair my Louis Vuitton product?</u>
-                </button>
-              </var>
+              <button onClick={() => handleComponentChange(4)}>
+                <u>How can I repair my Louis Vuitton product?</u>
+              </button>
             </div>
           </div>
         </div>
