@@ -1,3 +1,5 @@
+/** @format */
+
 import { Router } from "express";
 import upload from "../middleware/multer";
 import {
@@ -7,11 +9,13 @@ import {
   productUpdate,
   productEdit,
 } from "../controllers/productConroller";
+import { bagCreate } from "../controllers/bagController";
 
 export const router = Router();
+router.route("/bagCreate").post(bagCreate);
+router.route("/bag").get(product);
+// router.route("/bagCreate").post(upload.array("images"), bagCreate);
 
-router.route("/product").get(product);
-// router.route("/productCreate").post(upload.array("image"), productCreate);
 router.route("/productUpdate/:id").put(productUpdate);
 router.route("/productDelete/:id").delete(productDelete);
 // Getting data to edit route=====================================

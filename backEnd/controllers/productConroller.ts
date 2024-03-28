@@ -1,3 +1,4 @@
+/** @format */
 import Bag from "../models/bagModel";
 import Color from "../models/colorModel";
 import { Request, Response } from "express";
@@ -5,9 +6,9 @@ import cloudinary from "../utils/cloudinary";
 
 export const product = async (req: Request, res: Response) => {
   try {
-    const bag = await Bag.find({});
-    const bagColor = await Color.find({});
-    res.status(200).json({ bag, bagColor, message: "Successfully get file" });
+    const bag = await Bag.find({}).populate("colors");
+    // const bagColor = await Color.find({});
+    res.status(200).json({ bag, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed" });
@@ -16,55 +17,52 @@ export const product = async (req: Request, res: Response) => {
 
 // Creating Products ===================================================
 
-export const productCreate = async (req: Request, res: Response) => {
+// export const productCreate = async (req: Request, res: Response) => {
+//   // const parsedInput = JSON.parse(req.body.input);
+//   try {
+//     const { bagName, bagCode, price, brand, bagType, colors } = req.body.input;
+//     // const colors = req.body.colors;
+//     // console.log(colors, "colors");
+//     // console.log("Bag");
+//     let uploadedImages = [];
+//     const files = req.files as Express.Multer.File[];
+//     console.log(req.body, req.files);
+//     uploadedImages = await Promise.all(
+//       files.map(async (file: { path: string }) => {
+//         console.log("file paht", file.path);
+//         const uploadedImage = await cloudinary.uploader.upload(file.path);
+//         console.log("uploaded", uploadedImage);
+//         return uploadedImage.secure_url;
+//       })
+//     );
 
-  const parsedInput = req.body;
-console.log("parsedInput", parsedInput)
+//     // Creating colors and storing IDs ===
+//     const colorPromises = colors.map(async (color: any) => {
+//       const newColor = await Color.create({
+//         color: color.name,
+//         images: color.images,
+//       });
+//       return newColor._id;
+//     });
+//     const colorIds = await Promise.all(colorPromises);
 
-  try {
-    const { bagName, bagCode, price, brand, bagType, colors } = req.body.input;
-    // const colors = req.body.colors;
-    // console.log(colors, "colors");
-    // console.log("Bag");
-    let uploadedImages = [];
-    const files = req.files as Express.Multer.File[];
-    console.log(req.body, req.files);
-    uploadedImages = await Promise.all(
-      files.map(async (file: { path: string }) => {
-        console.log("file paht", file.path);
-        const uploadedImage = await cloudinary.uploader.upload(file.path);
-        console.log("uploaded", uploadedImage);
-        return uploadedImage.secure_url;
-      })
-    );
+//     // Creating new bag ===
+//     const newBag = await Bag.create({
+//       bagName: bagName,
+//       bagCode: bagCode,
+//       price: price,
+//       brand: brand,
+//       bagType: bagType,
+//       bagColor: colorIds, //
+//     });
 
-    // Creating colors and storing IDs ===
-    const colorPromises = colors.map(async (color: any) => {
-      const newColor = await Color.create({
-        color: color.name,
-        images: color.images,
-      });
-      return newColor._id;
-    });
-    const colorIds = await Promise.all(colorPromises);
-
-    // Creating new bag ===
-    const newBag = await Bag.create({
-      bagName: bagName,
-      bagCode: bagCode,
-      price: price,
-      brand: brand,
-      bagType: bagType,
-      bagColor: colorIds, //
-    });
-
-    console.log("Successfully created");
-    return res.status(201).json({ message: "Created", newBag });
-  } catch (error) {
-    console.error("error in create bag", error);
-    return res.status(400).json({ message: "Failed to create bag" });
-  }
-};
+//     console.log("Successfully created");
+//     return res.status(201).json({ message: "Created", newBag });
+//   } catch (error) {
+//     console.error("error in create bag", error);
+//     return res.status(400).json({ message: "Failed to create bag" });
+//   }
+// };
 
 // Updating Products ===================================================
 export const productUpdate = async (req: Request, res: Response) => {
@@ -138,5 +136,40 @@ export const productEdit = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: "Getting problem to send product data" });
+  }
+};
+
+// Testing new bag creation =========================================
+export const bagCreate = async (req: Request, res: Response) => {
+  const { bagName, price, brand, bagType, bagCode, coupon, sale, colors } =
+    req.body;
+  console.log(req.body);
+  try {
+    let colorIds = [];
+    let newBagId;
+    // console.log("Trying to create newBag");
+    const newBag = await Bag.create({
+      bagName,
+      price,
+      brand,
+      bagType,
+      bagCode,
+      coupon,
+      sale,
+      // Array руу өнгөнүүдийг хийхэд бэлэн болгоно
+      colors: [],
+    });
+    // newBag-н ID-г нь тусад нь авч байна
+    newBagId = newBag._id;
+
+    for (const color of colors) {
+      let createColor = await Color.create({ color, bagId: newBagId });
+      colorIds.push(createColor._id);
+    }
+    await Bag.findByIdAndUpdate(newBagId, { colors: colorIds });
+    res.status(201).send({ message: "Шинэ цүнх амжилттай үүслээ", newBag });
+  } catch (error) {
+    console.error(error, "Error in catch");
+    res.status(500).send({ message: "Шинэ цүнх үүсгэхэд алдаа гарлаа" });
   }
 };

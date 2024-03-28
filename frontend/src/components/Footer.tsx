@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export default function footer() {
+export const Footer = () => {
   return (
     <div className="flex justify-center bg-white text-black text-[12px]">
       <div className="py-20 flex justify-between">
@@ -67,7 +67,11 @@ export default function footer() {
                 />
 
                 <button>
-                  <img className="w-6 h-6" src="assets/send.svg" alt="" />
+                  <img
+                    className="w-4 h-4"
+                    src="assets/icons/sendMail.svg"
+                    alt=""
+                  />
                 </button>
               </div>
 
@@ -80,4 +84,4 @@ export default function footer() {
       </div>
     </div>
   );
-}
+};
