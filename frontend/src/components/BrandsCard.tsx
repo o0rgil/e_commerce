@@ -34,7 +34,6 @@ export const BrandsCard = () => {
                 <div
                   onClick={handleJumpHermes}
                   className="border p-5 w-[150px] bg-black bg-opacity-30  hover:bg-opacity-70 flex justify-center items-center cursor-pointer rounded-md transform translate-y-1 transition duration-700">
-
                   Shop Now
                 </div>
               </div>
@@ -57,9 +56,8 @@ export const BrandsCard = () => {
                 <div
                   onClick={handleJumpPrada}
                   className="border p-5 w-[150px] bg-black bg-opacity-30  hover:bg-opacity-70 flex justify-center items-center cursor-pointer rounded-md transform translate-y-1 transition duration-700">
-
                   Shop Now
-                </button>
+                </div>
               </div>
             </div>
           </div>
@@ -80,9 +78,8 @@ export const BrandsCard = () => {
                 <div
                   onClick={handleJumpLouisVuitton}
                   className="border p-5 w-[150px] bg-black bg-opacity-30  hover:bg-opacity-70 flex justify-center items-center cursor-pointer rounded-md transform translate-y-1 transition duration-700">
-
                   Shop Now
-                </button>
+                </div>
               </div>
             </div>
           </div>
@@ -102,7 +99,6 @@ export const BrandsCard = () => {
                 <div
                   onClick={handleJumpGucci}
                   className="border p-5 w-[150px] bg-black bg-opacity-30  hover:bg-opacity-70 flex justify-center items-center cursor-pointer rounded-md transform translate-y-1 transition duration-700">
-
                   Shop Now
                 </div>
               </div>
