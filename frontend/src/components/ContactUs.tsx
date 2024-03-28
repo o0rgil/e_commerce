@@ -58,19 +58,19 @@ export const ContactUs = () => {
             <input
               value={firstname}
               onChange={(e) => setFirstName(e.target.value)}
-              className=" w-[700px] border p-2 hover:border-black"
+              className="outline-0  w-[700px] border p-2 hover:border-black"
               placeholder=" First Name"
               type="text"
             />
             <input
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className=" w-[700px] border p-2 hover:border-black"
+              className="outline-0  w-[700px] border p-2 hover:border-black"
               placeholder=" Last Name"
               type="text"
             />
           </div>
-          <div className="flex items-center">
+          <div className="outline-0 flex items-center">
             <input
               value={areaCode}
               onChange={(e) => setAreaCode(e.target.value)}
