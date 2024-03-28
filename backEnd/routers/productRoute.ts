@@ -9,7 +9,7 @@ import {
   productUpdate,
   productEdit,
 } from "../controllers/productConroller";
-import { GucciBag, bagCreate } from "../controllers/bagController";
+import { GucciBag, HermesBag, bagCreate } from "../controllers/bagController";
 
 export const router = Router();
 router.route("/bagCreate").post(bagCreate);
@@ -22,3 +22,4 @@ router.route("/productDelete/:id").delete(productDelete);
 router.route("/products/:id").get(productEdit);
 
 router.route("/gucciBag").get(GucciBag);
+router.route("/hermesBag").get(HermesBag);

@@ -2,48 +2,76 @@
 
 import React, { useState } from "react";
 
-export const BoxStyle = ({
-  bags,
-}: {
-  bags: { bagName?: String; colors: { images: any[] }[] };
-}) => {
-  const [index, setIndex] = useState(0);
-  console.log("bags", bags);
+interface Bag {
+  bagName?: string;
+  colors: { name: string; images: any[] }[];
+}
+
+interface BoxStyleProps {
+  bags: Bag;
+}
+
+export const BoxStyle: React.FC<BoxStyleProps> = ({ bags }) => {
+  const [selectedColor, setSelectedColor] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(0);
+
+  const handleColorSelect = (colorIndex: number) => {
+    setSelectedColor(colorIndex);
+    setSelectedImage(0);
+  };
+
   const handlePrevClick = () => {
-    setIndex((prevIndex) => prevIndex + 1);
+    setSelectedImage((prevIndex) =>
+      prevIndex === 0
+        ? bags.colors[selectedColor].images.length - 1
+        : prevIndex - 1
+    );
   };
 
   const handleNextClick = () => {
-    setIndex((prevIndex) => prevIndex - 1);
+    setSelectedImage((prevIndex) =>
+      prevIndex === bags.colors[selectedColor].images.length - 1
+        ? 0
+        : prevIndex + 1
+    );
   };
 
   return (
-    <div className="w-[300px]">
-      <div className="relative w-full h-[300px]">
-        <div className="carousel-container relative w-full h-full hover:cursor-pointer">
-          {bags.colors[0]?.images.map((image: any, index: number) => (
+    <div className=" ">
+      <div className="relative w-full h-full ">
+        <div className="carousel-container  relative w-full h-full ">
+          {bags.colors[selectedColor]?.images.map((image: any, idx: number) => (
             <img
-              defaultValue={index}
-              key={index + 1}
-              src={image || "/download.png"}
-              alt={`Color ${index + 1}`}
+              key={idx}
+              src={image}
+              alt={`Color ${selectedColor + 1}`}
+              style={{ display: idx === selectedImage ? "block" : "none" }}
             />
           ))}
-          <div className="absolute flex justify-between left-5 right-5 top-1/2 transform -translate-y-1/2">
-            <button onClick={handlePrevClick}>❮</button>
-            <button onClick={handleNextClick}>❯</button>
+          <div className="hover:cursor-pointer absolute flex justify-between inset-0 opacity-0 hover:opacity-100 left-5 right-5   ">
+            <button className="p-3" onClick={handlePrevClick}>
+              <p className="text-3xl">❮</p>
+            </button>
+            <button className="p-3" onClick={handleNextClick}>
+              <p className="text-3xl">❯</p>
+            </button>
           </div>
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">
-            <h1>{bags.bagName || "Gucci"}</h1>
+            <h1>{bags.bagName || "Hermes"}</h1>
             <div className="flex gap-1">
-              <div className="border border-spacing-2 rounded-full w-4 h-4 bg-black" />
-              <div className="border border-spacing-2 rounded-full w-4 h-4 bg-red-500" />
-              <div className="border border-spacing-2 rounded-full w-4 h-4 bg-violet-500" />
+              {bags.colors.map((color, index) => (
+                <div
+                  key={index}
+                  className={`border border-spacing-2 border-black rounded-full w-4 h-4 cursor-pointer ${
+                    selectedColor === index ? "bg-black" : ""
+                  }`}
+                  onClick={() => handleColorSelect(index)}
+                />
+              ))}
             </div>
           </div>
         </div>
       </div>
-      <div></div>
     </div>
   );
 };
