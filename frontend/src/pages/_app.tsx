@@ -11,10 +11,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ContactVisiblity>
       <SearchVisiblity>
-
         {/* <Header />
         <HomeSection /> */}
-
 
         <Component {...pageProps} />
       </SearchVisiblity>

@@ -4,6 +4,17 @@ import Color from "../models/colorModel";
 import { Request, Response } from "express";
 import cloudinary from "../utils/cloudinary";
 
+export const GucciBag = async (req: Request, res: Response) => {
+  try {
+    const bags = await Bag.find({ brand: "Gucci" }).populate("colors");
+    console.log("bags", bags);
+    res.status(200).json({ bags, message: "Successfully get file" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed by get Gucci bag" });
+  }
+};
+
 export const bagCreate = async (req: Request, res: Response) => {
   const { bagName, price, brand, bagType, sale, colors } = req.body;
   // const uploadedImages = req.files;
