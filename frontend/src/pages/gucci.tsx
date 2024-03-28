@@ -35,7 +35,7 @@ export default function Gucci() {
     fetchProducts();
   }, []);
   return (
-    <div>
+    <div className="bg-white">
       <Header />
       {loading ? (
         <LoadingPage />
