@@ -1,12 +1,15 @@
 /** @format */
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { ContactUsBar } from "./ContactUsBar";
 import { ContactVisiblityContext } from "../../contexts/ContactUs";
 import { SearchVisiblityContext } from "../../contexts/SearchUs";
 import { SearchUsBar } from "./SearchUsBar";
+import { useRouter } from "next/router";
+import hermes from "@/pages/hermes";
 
 export default function Header() {
+  const router = useRouter();
   const { isContactVisible, setIsContactVisible } = useContext(
     ContactVisiblityContext
   );
@@ -14,23 +17,30 @@ export default function Header() {
   const { isSearchVisible, setIsSearchVisible } = useContext(
     SearchVisiblityContext
   );
+  const [mainWord, setMainWord] = useState("");
 
-  useEffect(() => {
-    document.addEventListener("keydown", detectKeyDown, true);
-  }, []);
-
-  const detectKeyDown = (e: any) => {
-    console.log("clicked key : ", e.key);
+  const handleLoginPage = () => {
+    router.push("/login  ");
   };
+  const changeMainWord = useMemo(() => {
+    if (router.asPath === "/gucci") {
+      setMainWord("gucci");
+    }
+    if (router.asPath === "/prada") {
+      setMainWord("prada");
+    }
+    if (router.asPath === "/hermes") {
+      setMainWord("hermes");
+    }
+    if (router.asPath === "/LouisVuitton") {
+      setMainWord("louis vuitton");
+    }
+  }, [router.asPath]);
 
   return (
-    <div className="w-full flex flex-col h-full absolute ">
+    <div className="w-full flex flex-col h-full  ">
       <div className="justify-between h-[90px] flex w-full items-center">
         <div className="flex pl-20  gap-5">
-          {/* <button className="flex items-center  gap-2">
-          <img className="w-4 h-4" src="assets/icons/hamburger.svg" alt="" />
-          <p className="text-[#000000] text-xs">Menu</p>
-        </button> */}
           <button
             onClick={() => {
               setIsSearchVisible(true);
@@ -40,7 +50,7 @@ export default function Header() {
             <p className="text-[#000000] text-xs">Search</p>
           </button>
         </div>
-        <div className=" uppercase justify-center text-4xl">LOUIS VUITTON</div>
+        <div className=" uppercase justify-center text-4xl">{mainWord}</div>
         <div className="pr-20 flex gap-[30px] h-[50px]">
           <button
             onClick={() => {
@@ -50,7 +60,7 @@ export default function Header() {
             Call Us
           </button>
           <button className="text-[#000000] text-xs">Wishlist</button>
-          <button>
+          <button onClick={handleLoginPage}>
             <img className="h-4 w-4" src="assets/icons/profile.svg" alt="" />
           </button>
           <button className="flex gap-1 justify-center items-center">

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from "react";
 
 interface TimeLeft {
@@ -32,7 +34,7 @@ const Countdown: React.FC<{ targetDate: Date }> = ({ targetDate }) => {
     }, 1000);
 
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   return (
     <div>

@@ -1,7 +1,9 @@
+/** @format */
+
 import React from "react";
 import Link from "next/link";
 
-export const SignUp = () => {
+export default function Signup() {
   return (
     <div className="flex justify-center  items-center ">
       <div className=" w-[440px] gap-6 flex flex-col mt-44 justify-items-center border rounded-xl p-10">
@@ -31,8 +33,7 @@ export const SignUp = () => {
         <button>
           <Link
             className="w-[360px] relative  h-[56px] flex justify-center bg-black rounded-lg items-center p-2 text-white text-lg"
-            href="/threestep"
-          >
+            href="/threestep">
             Дараах
             <img
               className=" absolute right-7"
@@ -67,4 +68,4 @@ export const SignUp = () => {
       </div>
     </div>
   );
-};
+}

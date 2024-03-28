@@ -28,11 +28,13 @@ export const BrandsCard = () => {
               src="/assets/Hermes.jpeg"
               alt=""
             />
+
             <div className="absolute inset-0 flex justify-center font-mono text-base items-end text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
               <div className="absolute bottom-14 p-2">
                 <div
                   onClick={handleJumpHermes}
                   className="border p-5 w-[150px] bg-black bg-opacity-30  hover:bg-opacity-70 flex justify-center items-center cursor-pointer rounded-md transform translate-y-1 transition duration-700">
+
                   Shop Now
                 </div>
               </div>
@@ -49,13 +51,15 @@ export const BrandsCard = () => {
               src="/assets/Prada.jpeg"
               alt=""
             />
+
             <div className="absolute inset-0 flex justify-center font-mono text-base items-end text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
               <div className=" absolute bottom-14 p-2">
                 <div
                   onClick={handleJumpPrada}
                   className="border p-5 w-[150px] bg-black bg-opacity-30  hover:bg-opacity-70 flex justify-center items-center cursor-pointer rounded-md transform translate-y-1 transition duration-700">
+
                   Shop Now
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -70,13 +74,15 @@ export const BrandsCard = () => {
               src="/assets/louisVuitton.jpeg"
               alt=""
             />
+
             <div className="absolute inset-0 flex justify-center font-mono text-base items-end text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
               <div className=" absolute bottom-14 p-2">
                 <div
                   onClick={handleJumpLouisVuitton}
                   className="border p-5 w-[150px] bg-black bg-opacity-30  hover:bg-opacity-70 flex justify-center items-center cursor-pointer rounded-md transform translate-y-1 transition duration-700">
+
                   Shop Now
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -96,6 +102,7 @@ export const BrandsCard = () => {
                 <div
                   onClick={handleJumpGucci}
                   className="border p-5 w-[150px] bg-black bg-opacity-30  hover:bg-opacity-70 flex justify-center items-center cursor-pointer rounded-md transform translate-y-1 transition duration-700">
+
                   Shop Now
                 </div>
               </div>
