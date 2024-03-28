@@ -15,7 +15,7 @@ export const SearchUsBar = () => {
           <div className="flex items-center justify-between gap-2  w-[700px] h-11 pl-3 pr-3 border-black border mt-6 rounded-md bg-blue-50">
             <img className="w-4 h-4" src="assets/icons/search.svg" alt="" />
             <input
-              className="w-full h-full bg-blue-50"
+              className="w-full h-full outline-0 bg-blue-50"
               type="text"
               placeholder="Shop New This Spring"
             />

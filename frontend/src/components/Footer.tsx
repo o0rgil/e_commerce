@@ -5,6 +5,19 @@ import { useRouter } from "next/router";
 import React from "react";
 
 export const Footer = () => {
+  const router = useRouter();
+  const handleJumpHermes = () => {
+    router.push("hermes");
+  };
+  const handleJumpGucci = () => {
+    router.push("gucci");
+  };
+  const handleJumpPrada = () => {
+    router.push("prada");
+  };
+  const handleJumpLouisVuitton = () => {
+    router.push("LouisVuitton");
+  };
   return (
     <div className="flex justify-center bg-white text-black text-[12px]">
       <div className="py-20 flex justify-between">
@@ -34,16 +47,28 @@ export const Footer = () => {
 
               <div className="flex flex-col gap-6 text-[14px]">
                 <u>
-                  <a href="">Gucci</a>
+                  <p className="cursor-pointer w-1/6" onClick={handleJumpGucci}>
+                    Gucci
+                  </p>
                 </u>
                 <u>
-                  <a href="">Hermes</a>
+                  <p
+                    className="cursor-pointer w-1/6"
+                    onClick={handleJumpHermes}>
+                    Hermes
+                  </p>
                 </u>
                 <u>
-                  <a href="">LV</a>
+                  <p
+                    className="cursor-pointer w-1/6"
+                    onClick={handleJumpLouisVuitton}>
+                    LV
+                  </p>
                 </u>
                 <u>
-                  <a href="">Prada</a>
+                  <p className="cursor-pointer w-1/6" onClick={handleJumpPrada}>
+                    Prada
+                  </p>
                 </u>
               </div>
             </div>
@@ -54,7 +79,7 @@ export const Footer = () => {
               <p>CONTACT US</p>
 
               <input
-                className="h-[43px] text-[16px] border-b bg-white"
+                className="h-[43px] outline-0 text-[16px] border-b bg-white"
                 placeholder="FEEDBACK"
                 type="text"
               />
@@ -63,7 +88,7 @@ export const Footer = () => {
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-center gap-2 border-b">
                 <input
-                  className="text-[16px] bg-white text-white w-[600px] h-[43px]"
+                  className="text-[16px] outline-0 bg-white w-[600px] h-[43px]"
                   placeholder="Email"
                   type="text"
                 />
