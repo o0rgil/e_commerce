@@ -2,16 +2,21 @@
 
 import React, { useState } from "react";
 
+interface Bags {
+  _id: string;
+  images: string[];
+  bagName: string;
+}
 interface Bag {
   bagName?: string;
-  colors: { name: string; images: any[] }[];
+  colors: Bags[];
 }
 
 interface BoxStyleProps {
   bags: Bag;
 }
 
-export const BoxStyle: React.FC<BoxStyleProps> = ({ bags }) => {
+export const BoxStyle = ({ bags }: { bags: Bag }) => {
   const [selectedColor, setSelectedColor] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
 

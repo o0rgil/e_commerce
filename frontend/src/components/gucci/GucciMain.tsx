@@ -1,13 +1,8 @@
 /** @format */
-
-import { Footer } from "@/components/Footer";
-import Header from "@/components/Header";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Loading } from "@/components/Loading";
 import LoadingPage from "@/components/LoadingPage";
 import { BoxStyle } from "@/components/bags/BoxStyle";
-import GucciMain from "@/components/gucci/GucciMain";
 
 const BASE_URL = "http://localhost:8080";
 interface Bags {
@@ -15,9 +10,13 @@ interface Bags {
   images: string[];
   bagName: string;
 }
+interface Bag {
+  bagName?: string;
+  colors: Bags[];
+}
 
-export default function Gucci() {
-  const [products, setProducts] = useState<Bags[]>([]);
+export default function GucciMain() {
+  const [products, setProducts] = useState<Bag[]>([]);
   const [loading, setloading] = useState(false);
 
   const fetchProducts = async () => {
@@ -37,9 +36,15 @@ export default function Gucci() {
   }, []);
   return (
     <div className="bg-white">
-      <Header />
-      <GucciMain />
-      <Footer />
+      {loading ? (
+        <LoadingPage />
+      ) : (
+        <div className="grid grid-cols-4 gap-1">
+          {products.map((bag) => (
+            <BoxStyle bags={bag} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
