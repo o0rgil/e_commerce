@@ -1,9 +1,8 @@
 /** @format */
-
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import LoadingPage from "../LoadingPage";
-import { BoxStyle } from "../bags/BoxStyle";
+import axios from "axios";
+import LoadingPage from "@/components/LoadingPage";
+import { BoxStyle } from "@/components/bags/BoxStyle";
 
 const BASE_URL = "http://localhost:8080";
 interface Bags {
@@ -11,9 +10,13 @@ interface Bags {
   images: string[];
   bagName: string;
 }
+interface Bag {
+  bagName?: string;
+  colors: Bags[];
+}
 
-export default function HermesMain() {
-  const [products, setProducts] = useState<Bags[]>([]);
+export default function GucciMain() {
+  const [products, setProducts] = useState<Bag[]>([]);
   const [loading, setloading] = useState(false);
 
   const fetchProducts = async () => {
@@ -32,18 +35,16 @@ export default function HermesMain() {
     fetchProducts();
   }, []);
   return (
-    <div>
-      <div className="bg-white">
-        {loading ? (
-          <LoadingPage />
-        ) : (
-          <div className="grid grid-cols-3 ">
-            {products.map((bag) => (
-              <BoxStyle key={bag._id} bags={bag} />
-            ))}
-          </div>
-        )}
-      </div>
+    <div className="bg-white">
+      {loading ? (
+        <LoadingPage />
+      ) : (
+        <div className="grid grid-cols-4 gap-1">
+          {products.map((bag) => (
+            <BoxStyle bags={bag} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
