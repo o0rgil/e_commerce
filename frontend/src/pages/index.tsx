@@ -1,15 +1,15 @@
-import { SectionMain } from "@/components/SectionMain";
-import { SectionSale } from "@/components/SectionSale";
+/** @format */
+
+import { ContactUs } from "@/components/ContactUs";
+import { HomeSection } from "@/components/HomeSection";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <div className="bg-gray-100 ">
-      {/* <SectionMain />
-      <SectionSale /> */}
-      {/* <Login /> */}
+    <div className="">
+      <HomeSection />
     </div>
   );
 }

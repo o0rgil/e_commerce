@@ -13,6 +13,9 @@ export const TestingProduct = () => {
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
   const [bagType, setBagType] = useState("");
+
+  // const [coupon, setCoupon] = useState("");
+
   const [sale, setSale] = useState("");
   const [colorInput, setColorInput] = useState("");
   const [adminColorInput, setAdminColorInput] = useState("");
@@ -60,7 +63,9 @@ export const TestingProduct = () => {
           images: color.images,
         })),
       };
+
       // console.log(bagData, "BagData");
+
       const response = await axios.post(
         "http://localhost:8080/bagCreate",
         bagData
@@ -69,12 +74,16 @@ export const TestingProduct = () => {
       alert(response.data.message);
       setBagName("");
       setPrice("");
+
       setBrand("");
       setBagType("");
+
       setSale("");
       setColors([]);
       setImages(null);
     } catch (error) {
+      // alert(error.response.data.message);
+
       console.error("Error creating bag:", error);
     } finally {
       setLoading(false);
@@ -97,7 +106,7 @@ export const TestingProduct = () => {
       const res = await instance.post("/upload", formData, config);
       console.log(res, "Response");
       setUploadedImage01(res.data.imageUrl);
-      alert("Зураг амжилттай Cloudinary-руу орлоо");
+      // alert("Зураг амжилттай Cloudinary-руу орлоо");
     } catch (error) {
       alert("Зураг оруулахад алдаа гарлаа");
     } finally {
@@ -251,6 +260,7 @@ export const TestingProduct = () => {
       {loading ? (
         <Loadingpage />
       ) : (
+
         <div className="flex flex-col bg-white w-[800px] justify-center p-8 gap-2 items-between mt-12 rounded-xl mb-[100px] m-auto">
           <div className="flex flex-col gap-3 w-[400px]">
             <label className="flex justify-between">
@@ -297,6 +307,7 @@ export const TestingProduct = () => {
                 <option value="Back_pack">Back pack</option>
               </select>
             </label>
+
 
             <label className="flex justify-between">
               Sale:

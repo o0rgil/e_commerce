@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import App from "./CountDown";
 import axios from "axios";
@@ -33,7 +35,7 @@ export const SectionSale = () => {
         </div>
 
         <div className=" flex ">
-          {data &&
+          {/* {data &&
             data.slice(0, 5).map((item) => (
               <div
                 className=" w-[185px] gap-4 flex flex-col justify-center items-center"
@@ -49,7 +51,7 @@ export const SectionSale = () => {
                   -{item.salePercent}%
                 </p>
               </div>
-            ))}
+            ))} */}
         </div>
       </div>
       <SectionRecommend />
