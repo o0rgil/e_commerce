@@ -12,14 +12,18 @@ import {
 import { GucciBag, HermesBag, bagCreate } from "../controllers/bagController";
 
 export const router = Router();
+// Creating bag ===================
 router.route("/bagCreate").post(bagCreate);
+// Getting created bags ==========
 router.route("/bag").get(product);
-// router.route("/bagCreate").post(upload.array("images"), bagCreate);
+// Deleting bags =================================
+router.route("/productDelete/:id").delete(productDelete);
+// Getting data to edit route =====================================
+router.route("/products/:id").get(productEdit);
 
 router.route("/productUpdate/:id").put(productUpdate);
-router.route("/productDelete/:id").delete(productDelete);
-// Getting data to edit route=====================================
-router.route("/products/:id").get(productEdit);
+
 
 router.route("/gucciBag").get(GucciBag);
 router.route("/hermesBag").get(HermesBag);
+

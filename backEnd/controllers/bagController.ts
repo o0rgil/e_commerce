@@ -50,6 +50,7 @@ export const bagCreate = async (req: Request, res: Response) => {
     for (const color of colors) {
       const createColor = await Color.create({
         color: color.colorName,
+        adminColor: color.adminColor,
         bagId: newBagId,
         bagCode: color.bagCode,
         images: color.images,
