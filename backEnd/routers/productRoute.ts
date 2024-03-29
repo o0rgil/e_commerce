@@ -12,11 +12,12 @@ import {
 import { bagCreate } from "../controllers/bagController";
 
 export const router = Router();
+// Creating bag ===================
 router.route("/bagCreate").post(bagCreate);
+// Getting created bags ==========
 router.route("/bag").get(product);
-// router.route("/bagCreate").post(upload.array("images"), bagCreate);
-
-router.route("/productUpdate/:id").put(productUpdate);
+// Deleting bags =================================
 router.route("/productDelete/:id").delete(productDelete);
-// Getting data to edit route=====================================
+// Getting data to edit route =====================================
 router.route("/products/:id").get(productEdit);
+router.route("/productUpdate/:id").put(productUpdate);

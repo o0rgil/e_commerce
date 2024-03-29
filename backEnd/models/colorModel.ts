@@ -5,6 +5,7 @@ import { Schema, model } from "mongoose";
 // Define the schema for your document
 const ColorSchema: Schema = new Schema({
   color: { type: String, required: true },
+  adminColor: { type: String },
   bagId: { type: Schema.Types.ObjectId, ref: "Bag", required: true },
   bagCode: { type: String, required: true, unique: true },
   images: { type: [String], required: true },

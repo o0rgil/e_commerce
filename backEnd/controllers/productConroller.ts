@@ -72,18 +72,10 @@ export const productUpdate = async (req: Request, res: Response) => {
   try {
     const existingProduct = await Bag.findById(_id);
     if (!existingProduct) {
-      return res.status(404).json({ message: "Product not found" });
+      return res
+        .status(404)
+        .json({ message: "Ийм цүнхний мэдээлэл олдсонгүй" });
     }
-    let uploadedImages = [];
-    const files = req.files as Express.Multer.File[];
-    uploadedImages = await Promise.all(
-      files.map(async (file: { path: string }) => {
-        console.log("file paht", file.path);
-        const uploadedImage = await cloudinary.uploader.upload(file.path);
-        console.log("uploaded", uploadedImage);
-        return uploadedImage.secure_url;
-      })
-    );
     const updatedBag = await Bag.findByIdAndUpdate(_id, {
       bagName: parsedInput.bagName,
       bagCode: parsedInput.bagCode,
@@ -96,7 +88,7 @@ export const productUpdate = async (req: Request, res: Response) => {
     const updatedColor = await Color.findByIdAndUpdate(_id, {
       bagName: parsedInput.bagName,
       color: parsedInput.color,
-      images: uploadedImages,
+      adminColor: parsedInput.adminColor,
       bagCode: parsedInput.bagCode,
     });
 
@@ -128,7 +120,7 @@ export const productEdit = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
     console.log(_id, "productId");
-    const product = await Bag.findOne({ _id });
+    const product = await Bag.findOne({ _id }).populate("colors");
     console.log(product, "Product");
     res
       .status(200)
@@ -140,36 +132,36 @@ export const productEdit = async (req: Request, res: Response) => {
 };
 
 // Testing new bag creation =========================================
-export const bagCreate = async (req: Request, res: Response) => {
-  const { bagName, price, brand, bagType, bagCode, coupon, sale, colors } =
-    req.body;
-  console.log(req.body);
-  try {
-    let colorIds = [];
-    let newBagId;
-    // console.log("Trying to create newBag");
-    const newBag = await Bag.create({
-      bagName,
-      price,
-      brand,
-      bagType,
-      bagCode,
-      coupon,
-      sale,
-      // Array руу өнгөнүүдийг хийхэд бэлэн болгоно
-      colors: [],
-    });
-    // newBag-н ID-г нь тусад нь авч байна
-    newBagId = newBag._id;
+// export const bagCreate = async (req: Request, res: Response) => {
+//   const { bagName, price, brand, bagType, bagCode, coupon, sale, colors } =
+//     req.body;
+//   console.log(req.body);
+//   try {
+//     let colorIds = [];
+//     let newBagId;
+//     // console.log("Trying to create newBag");
+//     const newBag = await Bag.create({
+//       bagName,
+//       price,
+//       brand,
+//       bagType,
+//       bagCode,
+//       coupon,
+//       sale,
+//       // Array руу өнгөнүүдийг хийхэд бэлэн болгоно
+//       colors: [],
+//     });
+//     // newBag-н ID-г нь тусад нь авч байна
+//     newBagId = newBag._id;
 
-    for (const color of colors) {
-      let createColor = await Color.create({ color, bagId: newBagId });
-      colorIds.push(createColor._id);
-    }
-    await Bag.findByIdAndUpdate(newBagId, { colors: colorIds });
-    res.status(201).send({ message: "Шинэ цүнх амжилттай үүслээ", newBag });
-  } catch (error) {
-    console.error(error, "Error in catch");
-    res.status(500).send({ message: "Шинэ цүнх үүсгэхэд алдаа гарлаа" });
-  }
-};
+//     for (const color of colors) {
+//       let createColor = await Color.create({ color, bagId: newBagId });
+//       colorIds.push(createColor._id);
+//     }
+//     await Bag.findByIdAndUpdate(newBagId, { colors: colorIds });
+//     res.status(201).send({ message: "Шинэ цүнх амжилттай үүслээ", newBag });
+//   } catch (error) {
+//     console.error(error, "Error in catch");
+//     res.status(500).send({ message: "Шинэ цүнх үүсгэхэд алдаа гарлаа" });
+//   }
+// };
