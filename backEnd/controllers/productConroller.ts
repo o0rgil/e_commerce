@@ -108,6 +108,7 @@ export const productDelete = async (req: Request, res: Response) => {
   try {
     console.log(_id, "productID");
     await Bag.deleteOne({ _id });
+    await Color.deleteMany({ bagId: _id });
     res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("error in delete product", error);

@@ -106,7 +106,7 @@ export const TestingProduct = () => {
       const res = await instance.post("/upload", formData, config);
       console.log(res, "Response");
       setUploadedImage01(res.data.imageUrl);
-      // alert("Зураг амжилттай Cloudinary-руу орлоо");
+      alert("Зураг амжилттай Cloudinary-руу орлоо");
     } catch (error) {
       alert("Зураг оруулахад алдаа гарлаа");
     } finally {
@@ -192,66 +192,66 @@ export const TestingProduct = () => {
     setColors(updatedColors);
   };
 
-  useEffect(() => {
-    const { _id } = router.query;
-    const fetchBagEdit = async (_id) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/products/${_id}`
-        );
-        console.log(response.data.product);
-        setBagEdit(response.data.product);
-        setIsbagHere(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    if (_id) {
-      fetchBagEdit(_id);
-    }
-  }, [router.query]);
+  // useEffect(() => {
+  //   const { _id } = router.query;
+  //   const fetchBagEdit = async (_id) => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:8080/products/${_id}`
+  //       );
+  //       console.log(response.data.product);
+  //       setBagEdit(response.data.product);
+  //       setIsbagHere(true);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   if (_id) {
+  //     fetchBagEdit(_id);
+  //   }
+  // }, [router.query]);
   // Updating Bag Scene========================
-  const handleUpdateBag = async () => {
-    try {
-      console.log("Updating...");
-      setLoading(true);
-      const bagData = {
-        bagName,
-        price,
-        brand,
-        bagType,
-        sale,
-        colors: colors.map((color) => ({
-          colorName: color.colorName,
-          adminColor: color.adminColor,
-          bagCode: color.bagCode,
-          images: color.images,
-        })),
-      };
-      const response = await axios.put(
-        `http://localhost:8080/bagUpdate/${bagEdit._id}`,
-        bagData
-      );
-      console.log(response.data.message);
-      alert(response.data.message);
-      setBagName("");
-      setPrice("");
-      setBrand("");
-      setBagType("");
-      setSale("");
-      setColors([]);
-      setImages(null);
-    } catch (error) {
-      console.error("Error updating bag:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const handleUpdateBag = async () => {
+  //   try {
+  //     console.log("Updating...");
+  //     setLoading(true);
+  //     const bagData = {
+  //       bagName,
+  //       price,
+  //       brand,
+  //       bagType,
+  //       sale,
+  //       colors: colors.map((color) => ({
+  //         colorName: color.colorName,
+  //         adminColor: color.adminColor,
+  //         bagCode: color.bagCode,
+  //         images: color.images,
+  //       })),
+  //     };
+  //     const response = await axios.put(
+  //       `http://localhost:8080/bagUpdate/${bagEdit._id}`,
+  //       bagData
+  //     );
+  //     console.log(response.data.message);
+  //     alert(response.data.message);
+  //     setBagName("");
+  //     setPrice("");
+  //     setBrand("");
+  //     setBagType("");
+  //     setSale("");
+  //     setColors([]);
+  //     setImages(null);
+  //   } catch (error) {
+  //     console.error("Error updating bag:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   return (
     <div>
       <div className="w-[800px] m-auto">
         <button
-          className="mt-10 border border-black px-4 py-2 rounded-lg bg-white flex gap-4 items-center hover:bg-black hover:text-white duration-300"
+          className="mt-10 border px-4 py-2 text-stone-500 font-bold rounded-lg bg-white flex gap-4 items-center border-stone-300 hover:bg-stone-500 hover:text-white duration-500"
           onClick={handleBack}>
           <i className="fa-solid fa-arrow-left"></i>
           Бүтээгдэхүүнээ харах
@@ -260,7 +260,6 @@ export const TestingProduct = () => {
       {loading ? (
         <Loadingpage />
       ) : (
-
         <div className="flex flex-col bg-white w-[800px] justify-center p-8 gap-2 items-between mt-12 rounded-xl mb-[100px] m-auto">
           <div className="flex flex-col gap-3 w-[400px]">
             <label className="flex justify-between">
@@ -307,7 +306,6 @@ export const TestingProduct = () => {
                 <option value="Back_pack">Back pack</option>
               </select>
             </label>
-
 
             <label className="flex justify-between">
               Sale:
@@ -464,15 +462,15 @@ export const TestingProduct = () => {
                 <button
                   onClick={handleColorAdd}
                   type="button"
-                  className="border px-3 rounded-lg hover:text-white hover:bg-black duration-300 w-[300px] h-10 m-auto font-bold">
+                  className="border border-stone-300 text-stone-500 px-3 rounded-lg hover:text-white hover:bg-stone-500 duration-500 w-[300px] h-10 m-auto font-bold">
                   Add color with pictures
                 </button>
               </div>
             </div>
-            <ul>
+            <div>
               {colors.map(
                 ({ colorName, bagCode, images: colorImages }, colorIndex) => (
-                  <li
+                  <div
                     key={colorIndex + colorName}
                     className="flex items-center justify-around w-full">
                     {colorName}
@@ -497,10 +495,10 @@ export const TestingProduct = () => {
                       onClick={() => handleColorDelete(colorIndex)}>
                       <i className="fa-solid fa-trash text-gray-400 text-sm"></i>
                     </button>
-                  </li>
+                  </div>
                 )
               )}
-            </ul>
+            </div>
           </label>
           <div className="flex justify-end">
             {isBagHere ? (
@@ -515,7 +513,7 @@ export const TestingProduct = () => {
               <button
                 type="submit"
                 onClick={handleAddBag}
-                className="border py-1 rounded-lg hover:text-white hover:bg-black duration-300 w-[300px] h-[60px] my-8 text-xl font-bold">
+                className="border border-stone-300 py-1 rounded-lg hover:text-white hover:bg-stone-500 text-stone-500 duration-500 w-[300px] h-[60px] my-8 text-xl font-bold">
                 Create Bag
                 <i className="fa-solid fa-file-import ml-2"></i>
               </button>
