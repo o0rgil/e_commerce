@@ -24,6 +24,16 @@ export const HermesBag = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed by get Gucci bag" });
   }
 };
+export const LVBag = async (req: Request, res: Response) => {
+  try {
+    const bags = await Bag.find({ brand: "LV" }).populate("colors");
+    console.log("bags", bags);
+    res.status(200).json({ bags, message: "Successfully get file" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed by get LV bag" });
+  }
+};
 
 export const bagCreate = async (req: Request, res: Response) => {
   const { bagName, price, brand, bagType, sale, colors } = req.body;
