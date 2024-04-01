@@ -22,9 +22,14 @@ export const ProductList = () => {
   const router = useRouter();
   const [loading, setloading] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  const [selectedProductId, setSelectedProductId] = useState();
-  const [selectedProductIndex, setSelectedProductIndex] = useState();
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(
+    null
+  );
+  const [selectedProductIndex, setSelectedProductIndex] = useState<
+    number | null
+  >(null);
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
+  const [searchInput, setSearchInput] = useState("");
 
   // Fetching Products from DB Scene ==============
   const fetchProducts = async () => {
@@ -82,30 +87,67 @@ export const ProductList = () => {
     return formattedDate;
   };
 
-  // Checking line Scene ==============================
+  // Checking line and Multiple Deletion Scene ==============================
   const handleCheckboxChange = (id: string) => {
     return () => {
-      if (selectedCheckboxes.includes(id)) {
-        setSelectedCheckboxes(
-          selectedCheckboxes.filter((checkbox) => checkbox !== id)
-        );
-      } else {
-        setSelectedCheckboxes([...selectedCheckboxes, id]);
-      }
+      setSelectedCheckboxes((prev) => {
+        if (prev.includes(id)) {
+          return prev.filter((checkbox) => checkbox !== id);
+        } else {
+          return [...prev, id];
+        }
+      });
     };
   };
+  const handleDeleteSelected = async () => {
+    setloading(true);
+    try {
+      const updatedProducts = products.filter(
+        (product) => !selectedCheckboxes.includes(product._id)
+      );
+      // Delete selected products from backend
+      await Promise.all(
+        selectedCheckboxes.map((id) =>
+          axios.delete(BASE_URL + `/productDelete/${id}`)
+        )
+      );
+      setProducts(updatedProducts);
+      setSelectedCheckboxes([]); // Clear selected checkboxes after deletion
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setloading(false);
+    }
+  };
   const isButtonEnabled = selectedCheckboxes.length > 0;
+
+  // Search Input Scene ==================================
+  const filteredProducts = products.filter((product) => {
+    return (
+      product.bagName.toLowerCase().includes(searchInput.toLowerCase()) ||
+      product.price.toString().includes(searchInput.toLowerCase()) ||
+      product.brand.toLowerCase().includes(searchInput.toLowerCase()) ||
+      product.colors.some((color) =>
+        color.color.toLowerCase().includes(searchInput.toLocaleLowerCase())
+      ) ||
+      product.colors.some((color) =>
+        color.adminColor.toLowerCase().includes(searchInput.toLocaleLowerCase())
+      )
+    );
+  });
 
   return (
     <div className="bg-gray-200 h-full w-screen pb-10">
       <div>
-        {deleteModal && (
+        {deleteModal ? (
           <DeleteModal
             handleDelete={handleDelete}
             openDeleteModal={openDeleteModal}
             productId={selectedProductId}
             productIndex={selectedProductIndex}
           />
+        ) : (
+          ""
         )}
       </div>
       <div>
@@ -128,6 +170,7 @@ export const ProductList = () => {
         <div className="flex gap-[13px]">
           <button
             disabled={!isButtonEnabled}
+            onClick={handleDeleteSelected}
             className={`border border-gray-300 rounded-lg py-2 px-4 bg-white text-black hover:shadow-lg duration-300 ${
               !isButtonEnabled ? "opacity-30 cursor-not-allowed" : ""
             }`}>
@@ -138,8 +181,10 @@ export const ProductList = () => {
           <img src="/assets/icons/scope.svg" alt="" className="w-[17px]" />
           <input
             type="text"
-            className="w-[400px]"
-            placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
+            className="w-[400px] px-2"
+            value={searchInput}
+            placeholder="Бүтээгдэхүүний нэр, Брэнд, Үнэ, Өнгө, Админ өнгө"
+            onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
       </div>
@@ -150,16 +195,16 @@ export const ProductList = () => {
             <tr className="flex h-[44px] text-xs font-semibold">
               <th className="w-[68px]"></th>
               <th className="w-[40px] flex justify-center items-center">№</th>
-              <th className="w-[156.8px] h-[44px] flex justify-start items-center">
+              <th className="w-[170.8px] h-[44px] flex justify-start items-center">
                 Цүнхний нэр
               </th>
               <th className="w-[110px] h-[44px] flex justify-start items-center">
                 Брэнд
               </th>
-              <th className="w-[156.8px] h-[44px] flex justify-start items-center">
+              <th className="w-[120.8px] h-[44px] flex justify-start items-center">
                 Үнэ
               </th>
-              <th className="w-[156.8px] h-[44px] flex justify-start items-center">
+              <th className="w-[135.8px] h-[44px] flex justify-start items-center">
                 Үлдэгдэл
               </th>
               <th className="w-[214px] h-[44px] flex justify-start items-center">
@@ -177,25 +222,26 @@ export const ProductList = () => {
               <Loadingpage />
             ) : (
               <>
-                {products.map((bag, index) => (
+                {filteredProducts.map((bag, index) => (
                   <tr
                     key={bag._id}
-                    className={`flex text-sm text-[#3F4145] font-normal hover:bg-green-100 duration-500 w-[1170px] text-stone-500 ${
-                      index % 2 === 0 ? `bg-stone-100` : `bg-stone-200`
-                    } ${
-                      selectedCheckboxes.includes(bag._id) && "bg-green-500"
+                    className={`flex text-sm font-normal hover:bg-white hover:text-black duration-300 w-[1170px] text-stone-500 ${
+                      selectedCheckboxes.includes(bag._id)
+                        ? "bg-stone-500 text-white"
+                        : `${index % 2 === 0 ? "bg-stone-100" : "bg-stone-200"}`
                     }`}>
                     <td className="w-[68px] flex justify-center items-center">
                       <input
                         type="checkbox"
                         onClick={handleCheckboxChange(bag._id)}
                         checked={selectedCheckboxes.includes(bag._id)}
+                        className={`cursor-pointer rounded-full appearance-none border border-gray-300 w-5 h-5 checked:bg-blue-600 checked:border-transparent`}
                       />
                     </td>
                     <td className="w-[40px] flex justify-center items-center text-xs text-stone-400">
                       {index + 1}
                     </td>
-                    <td className="group relative w-[156.8px] h-[44px] flex justify-start items-center ">
+                    <td className="group relative w-[170.8px] h-[44px] flex justify-start items-center ">
                       <div className="truncate w-[120px] absolute z-0 flex flex-col">
                         {bag.bagName}
                       </div>
@@ -207,10 +253,10 @@ export const ProductList = () => {
                     <td className="w-[110px] h-[44px] flex justify-start items-center">
                       {bag.brand}
                     </td>
-                    <td className="w-[156.8px] h-[44px] flex justify-start items-center">
+                    <td className="w-[130.8px] h-[44px] flex justify-start items-center">
                       {bag.price}₮
                     </td>
-                    <td className="w-[156.8px] h-[44px] flex justify-start items-center">
+                    <td className="w-[130.8px] h-[44px] flex justify-start items-center">
                       {bag.price}
                     </td>
                     <td className="w-[214px] h-[44px] flex justify-start items-center ">
@@ -233,7 +279,7 @@ export const ProductList = () => {
                       <img
                         src="/assets/icons/edit.svg"
                         alt=""
-                        className="cursor-pointer hover:scale-[1.3] duration-200"
+                        className={`cursor-pointer hover:scale-[1.3] duration-200`}
                         onClick={(e) => handleEdit(bag._id, index)}
                       />
                     </td>
