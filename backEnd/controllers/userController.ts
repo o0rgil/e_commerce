@@ -1,15 +1,17 @@
-import { userSchema } from "../models/userModel";
+/** @format */
+
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import User from "../models/userModel";
 dotenv.config();
 
 const jwtPrivateKey = process.env.JWT_SECRET_KEY;
 
 export const getUser = async (req: Request, res: Response) => {
   try {
-    const users = await userSchema.find({});
+    const users = await User.find({});
     res.send(users);
   } catch (error) {
     console.error(error);
@@ -32,7 +34,7 @@ export const singUp = async (req: Request, res: Response) => {
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await userSchema.create({
+    const user = await User.create({
       userName,
       email,
       password: hashedPassword,
@@ -55,7 +57,7 @@ export const singIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   console.log(req.body);
   try {
-    const user = await userSchema.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Email not found" });
     }
@@ -99,12 +101,12 @@ export const userUpdate = async (req: Request, res: Response) => {
     _id,
   } = req.body;
   try {
-    const user = await userSchema.findOne({ _id });
+    const user = await User.findOne({ _id });
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
 
-    await userSchema.updateOne(
+    await User.updateOne(
       { _id },
       {
         $set: {
@@ -133,7 +135,7 @@ export const userDelete = async (req: Request, res: Response) => {
 
   try {
     console.log(_id, "productID");
-    await userSchema.deleteOne({ _id });
+    await User.deleteOne({ _id });
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.error("error in delete user", error);

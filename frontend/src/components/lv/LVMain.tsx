@@ -1,8 +1,9 @@
 /** @format */
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import LoadingPage from "@/components/LoadingPage";
-import { BoxStyle } from "@/components/bags/BoxStyle";
+import LoadingPage from "../LoadingPage";
+import { BoxStyle } from "../bags/BoxStyle";
 
 const BASE_URL = "http://localhost:8080";
 interface Bags {
@@ -13,17 +14,16 @@ interface Bags {
 interface Bag {
   bagName?: string;
   colors: Bags[];
-  adminColor: string;
 }
 
-export default function GucciMain() {
+export const LVMain = () => {
   const [products, setProducts] = useState<Bag[]>([]);
   const [loading, setloading] = useState(false);
 
   const fetchProducts = async () => {
     setloading(true);
     try {
-      const response = await axios.get(BASE_URL + "/hermesBag");
+      const response = await axios.get(BASE_URL + "/lvbag");
       setProducts(response.data.bags);
     } catch (error) {
       console.error(error);
@@ -31,7 +31,6 @@ export default function GucciMain() {
       setloading(false);
     }
   };
-
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -48,4 +47,4 @@ export default function GucciMain() {
       )}
     </div>
   );
-}
+};

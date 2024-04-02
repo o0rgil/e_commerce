@@ -36,9 +36,12 @@ export default function Gucci() {
     fetchProducts();
   }, []);
   return (
-    <div className="bg-white">
+    <div className="bg-white relative">
       <Header />
-      <GucciMain />
+      <div className="obsolute">
+        <GucciMain />
+      </div>
+
       <Footer />
     </div>
   );
