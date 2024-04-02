@@ -260,7 +260,6 @@ export const TestingProduct = () => {
       {loading ? (
         <Loadingpage />
       ) : (
-
         <div className="flex flex-col bg-white w-[800px] justify-center p-8 gap-2 items-between mt-12 rounded-xl mb-[100px] m-auto">
           <div className="flex flex-col gap-3 w-[400px]">
             <label className="flex justify-between">
@@ -307,7 +306,6 @@ export const TestingProduct = () => {
                 <option value="Back_pack">Back pack</option>
               </select>
             </label>
-
 
             <label className="flex justify-between">
               Sale:
