@@ -35,16 +35,20 @@ export default function GucciMain() {
     fetchProducts();
   }, []);
   return (
-    <div className="bg-white">
+    <div className="bg-white flex flex-col items-center">
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="grid grid-cols-4 gap-1">
+        <div className="grid grid-cols-1 lg:grid-cols-4">
           {products.map((bag) => (
             <BoxStyle bags={bag} />
           ))}
         </div>
       )}
+
+      <button className="bg-white py-3 px-5 rounded-xl my-10 text-black  w-[250px] border-[2px] hover:bg-black hover:text-white hover:border-black">
+        Load All
+      </button>
     </div>
   );
 }

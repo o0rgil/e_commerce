@@ -42,38 +42,39 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
   };
 
   return (
-    <div className=" ">
-      <div className="relative w-full h-full ">
-        <div className="carousel-container  relative w-full h-full ">
-          {bags.colors[selectedColor]?.images.map((image: any, idx: number) => (
-            <img
-              key={idx}
-              src={image}
-              alt={`Color ${selectedColor + 1}`}
-              style={{ display: idx === selectedImage ? "block" : "none" }}
-            />
-          ))}
-          <div className="hover:cursor-pointer absolute flex justify-between inset-0 opacity-0 hover:opacity-100 left-5 right-5   ">
-            <button className="p-3" onClick={handlePrevClick}>
-              <p className="text-3xl">❮</p>
-            </button>
-            <button className="p-3" onClick={handleNextClick}>
-              <p className="text-3xl">❯</p>
-            </button>
-          </div>
-          <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">
-            <h1>{bags.bagName || "Hermes"}</h1>
-            <div className="flex gap-1">
-              {bags.colors.map((color, index) => (
-                <div
-                  key={index}
-                  className={`border border-spacing-2 border-black rounded-full w-4 h-4 cursor-pointer ${
-                    selectedColor === index ? "bg-black" : ""
-                  }`}
-                  onClick={() => handleColorSelect(index)}
-                />
-              ))}
-            </div>
+    <div className="relative w-full h-full ">
+      <div className="carousel-container relative">
+        {bags.colors[selectedColor]?.images.map((image: any, idx: number) => (
+          <img
+            key={idx}
+            src={image}
+            alt={`Color ${selectedColor + 1}`}
+            style={{ display: idx === selectedImage ? "block" : "none" }}
+            className=""
+          />
+        ))}
+        <div className="hover:cursor-pointer absolute flex justify-between inset-0 opacity-0 hover:opacity-100 left-5 right-5   ">
+          <button className="p-3" onClick={handlePrevClick}>
+            <p className="text-3xl">❮</p>
+          </button>
+          <button className="p-3" onClick={handleNextClick}>
+            <p className="text-3xl">❯</p>
+          </button>
+        </div>
+        <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">
+          <h1 className="text-[12px] lg:text-[16px] text-black">
+            {bags.bagName || "Hermes"}
+          </h1>
+          <div className="flex gap-1">
+            {bags.colors.map((color, index) => (
+              <div
+                key={index}
+                className={`border border-spacing-2 border-black rounded-full lg:w-4 lg:h-4 cursor-pointer w-3 h-3 ${
+                  selectedColor === index ? "bg-black" : ""
+                }`}
+                onClick={() => handleColorSelect(index)}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingPage from "../LoadingPage";
-import { BoxStyle } from "../bags/BoxStyle";
+import { LVBoxStyle } from "./LVBoxStyle";
 
 const BASE_URL = "http://localhost:8080";
 interface Bags {
@@ -41,7 +41,7 @@ export const LVMain = () => {
       ) : (
         <div className="grid grid-cols-4 gap-1">
           {products.map((bag) => (
-            <BoxStyle bags={bag} />
+            <LVBoxStyle bags={bag} />
           ))}
         </div>
       )}
