@@ -13,6 +13,7 @@ import {
   GucciBag,
   HermesBag,
   LVBag,
+  bag,
   bagCreate,
 } from "../controllers/bagController";
 
@@ -25,6 +26,8 @@ router.route("/bag").get(product);
 router.route("/productDelete/:id").delete(productDelete);
 // Getting data to edit route =====================================
 router.route("/products/:id").get(productEdit);
+
+router.route("/bag/:id").get(bag);
 
 router.route("/productUpdate/:id").put(productUpdate);
 
