@@ -13,6 +13,7 @@ interface Bags {
 interface Bag {
   bagName?: string;
   colors: Bags[];
+  adminColor: string;
 }
 
 export default function GucciMain() {

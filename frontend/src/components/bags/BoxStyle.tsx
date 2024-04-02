@@ -6,10 +6,12 @@ interface Bags {
   _id: string;
   images: string[];
   bagName: string;
+  adminColor: string;
 }
 interface Bag {
   bagName?: string;
   colors: Bags[];
+  adminColor: string;
 }
 
 interface BoxStyleProps {
@@ -42,7 +44,7 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
   };
 
   return (
-    <div className=" ">
+    <div className="">
       <div className="relative w-full h-full ">
         <div className="carousel-container  relative w-full h-full ">
           {bags.colors[selectedColor]?.images.map((image: any, idx: number) => (
@@ -64,15 +66,18 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">
             <h1>{bags.bagName || "Hermes"}</h1>
             <div className="flex gap-1">
-              {bags.colors.map((color, index) => (
-                <div
-                  key={index}
-                  className={`border border-spacing-2 border-black rounded-full w-4 h-4 cursor-pointer ${
-                    selectedColor === index ? "bg-black" : ""
-                  }`}
-                  onClick={() => handleColorSelect(index)}
-                />
-              ))}
+              {bags.colors.map((color, index) => {
+                return (
+                  <div
+                    key={index}
+                    style={{ backgroundColor: color.adminColor }}
+                    className={`border border-spacing-2 rounded-full w-4  h-4 cursor-pointer ${
+                      selectedColor === index ? "" : ""
+                    }`}
+                    onClick={() => handleColorSelect(index)}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
