@@ -35,12 +35,10 @@ export const LVBag = async (req: Request, res: Response) => {
   }
 };
 
+// Creating new Bag Scene ======================
 export const bagCreate = async (req: Request, res: Response) => {
   const { bagName, price, brand, bagType, sale, colors } = req.body;
-  // const uploadedImages = req.files;
-  // console.log(uploadedImages, "uploadedImages");
 
-  console.log(req.body, "req.body");
   try {
     let colorIds = [];
     let newBagId;
@@ -64,6 +62,8 @@ export const bagCreate = async (req: Request, res: Response) => {
         bagId: newBagId,
         bagCode: color.bagCode,
         images: color.images,
+        consumer: color.consumer,
+        status: color.status,
       });
       console.log("createColor", createColor);
       colorIds.push(createColor._id);
