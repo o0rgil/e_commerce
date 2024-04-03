@@ -31,6 +31,7 @@ export const LVBag = async (req: Request, res: Response) => {
   }
 };
 
+
 export const bag = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
@@ -44,6 +45,7 @@ export const bag = async (req: Request, res: Response) => {
 
 export const bagCreate = async (req: Request, res: Response) => {
   const { bagName, price, brand, bagType, sale, colors } = req.body;
+
   try {
     let colorIds = [];
     let newBagId;
@@ -65,6 +67,8 @@ export const bagCreate = async (req: Request, res: Response) => {
         bagId: newBagId,
         bagCode: color.bagCode,
         images: color.images,
+        consumer: color.consumer,
+        status: color.status,
       });
       colorIds.push(createColor._id);
     }

@@ -1,8 +1,8 @@
+/** @format */
 
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
-
-export const userSchema = new Schema({
+const userSchema = new Schema({
   userName: {
     type: String,
     required: [true, "Please check name"],
@@ -45,3 +45,5 @@ export const userSchema = new Schema({
     required: [true, " Please check createdAt"],
   },
 });
+const User = model("User", userSchema);
+export default User;

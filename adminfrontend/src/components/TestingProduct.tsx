@@ -21,6 +21,8 @@ export const TestingProduct = () => {
   const [adminColorInput, setAdminColorInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<FileList | null>(null);
+  const [consumerInput, setConsumerInput] = useState("asdasd");
+  const [statusInput, setStatusInput] = useState("fasd");
 
   const [colors, setColors] = useState<
     {
@@ -28,6 +30,8 @@ export const TestingProduct = () => {
       adminColor: string;
       bagCode: string;
       images: string[];
+      consumer: string;
+      status: string;
     }[]
   >([]);
 
@@ -61,29 +65,25 @@ export const TestingProduct = () => {
           adminColor: color.adminColor,
           bagCode: color.bagCode,
           images: color.images,
+          consumer: consumerInput,
+          status: statusInput,
         })),
       };
-
-      // console.log(bagData, "BagData");
 
       const response = await axios.post(
         "http://localhost:8080/bagCreate",
         bagData
       );
-      console.log(response.data.message);
       alert(response.data.message);
       setBagName("");
       setPrice("");
-
       setBrand("");
       setBagType("");
-
       setSale("");
       setColors([]);
       setImages(null);
     } catch (error) {
-      // alert(error.response.data.message);
-
+      alert(error.response.data.message);
       console.error("Error creating bag:", error);
     } finally {
       setLoading(false);
@@ -179,9 +179,13 @@ export const TestingProduct = () => {
           adminColor: adminColorInput,
           bagCode: newCode,
           images: filteredImages,
+          consumer: consumerInput,
+          status: statusInput,
         },
       ]);
       setColorInput("");
+      setConsumerInput("");
+      setStatusInput("");
     }
     console.log(colors, "colors");
   };
@@ -192,61 +196,45 @@ export const TestingProduct = () => {
     setColors(updatedColors);
   };
 
-  // useEffect(() => {
-  //   const { _id } = router.query;
-  //   const fetchBagEdit = async (_id) => {
-  //     try {
-  //       const response = await axios.get(
-  //         `http://localhost:8080/products/${_id}`
-  //       );
-  //       console.log(response.data.product);
-  //       setBagEdit(response.data.product);
-  //       setIsbagHere(true);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   if (_id) {
-  //     fetchBagEdit(_id);
-  //   }
-  // }, [router.query]);
   // Updating Bag Scene========================
-  // const handleUpdateBag = async () => {
-  //   try {
-  //     console.log("Updating...");
-  //     setLoading(true);
-  //     const bagData = {
-  //       bagName,
-  //       price,
-  //       brand,
-  //       bagType,
-  //       sale,
-  //       colors: colors.map((color) => ({
-  //         colorName: color.colorName,
-  //         adminColor: color.adminColor,
-  //         bagCode: color.bagCode,
-  //         images: color.images,
-  //       })),
-  //     };
-  //     const response = await axios.put(
-  //       `http://localhost:8080/bagUpdate/${bagEdit._id}`,
-  //       bagData
-  //     );
-  //     console.log(response.data.message);
-  //     alert(response.data.message);
-  //     setBagName("");
-  //     setPrice("");
-  //     setBrand("");
-  //     setBagType("");
-  //     setSale("");
-  //     setColors([]);
-  //     setImages(null);
-  //   } catch (error) {
-  //     console.error("Error updating bag:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const handleUpdateBag = async () => {
+    try {
+      console.log("Updating...");
+      setLoading(true);
+      const newBagData = {
+        bagName,
+        price,
+        brand,
+        bagType,
+        sale,
+        colors: colors.map((color) => ({
+          colorName: color.colorName,
+          adminColor: color.adminColor,
+          bagCode: color.bagCode,
+          consumer: color.consumer,
+          status: color.status,
+        })),
+      };
+      const response = await axios.put(
+        `http://localhost:8080/bagUpdate/${bagEdit._id}`,
+        newBagData
+      );
+      alert(response.data.message);
+      setBagName("");
+      setPrice("");
+      setBrand("");
+      setBagType("");
+      setSale("");
+      setColors([]);
+      setImages(null);
+      setConsumerInput("");
+      setStatusInput("");
+    } catch (error) {
+      console.error("Error updating bag:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div>
       <div className="w-[800px] m-auto">
@@ -260,10 +248,10 @@ export const TestingProduct = () => {
       {loading ? (
         <Loadingpage />
       ) : (
-        <div className="flex flex-col bg-white w-[800px] justify-center p-8 gap-2 items-between mt-12 rounded-xl mb-[100px] m-auto">
+        <div className="flex flex-col bg-white w-[800px] text-stone-500 justify-center p-8 gap-2 items-between mt-12 rounded-xl mb-[100px] m-auto">
           <div className="flex flex-col gap-3 w-[400px]">
             <label className="flex justify-between">
-              Bag Name:
+              Цүнхний нэр:
               <input
                 type="text"
                 defaultValue={isBagHere ? bagEdit.bagName : bagName}
@@ -272,7 +260,7 @@ export const TestingProduct = () => {
               />
             </label>
             <label className="flex justify-between">
-              Price:
+              Үнэ:
               <input
                 type="number"
                 defaultValue={isBagHere ? bagEdit.price : price}
@@ -281,12 +269,12 @@ export const TestingProduct = () => {
               />
             </label>
             <label className="flex justify-between">
-              Brand:
+              Брэнд:
               <select
-                defaultValue={isBagHere ? bagEdit.brand : brand}
+                value={isBagHere ? bagEdit.brand : brand}
                 onChange={(e) => setBrand(e.target.value)}
                 className="border cursor-pointer py-1 rounded-lg">
-                <option value="">Select Brand</option>
+                <option value="">Брэнд сонгох</option>
                 <option value="Prada">Prada</option>
                 <option value="LV">LOUIS VUITTON</option>
                 <option value="Gucci">Gucci</option>
@@ -294,12 +282,12 @@ export const TestingProduct = () => {
               </select>
             </label>
             <label className="flex justify-between">
-              Bag Type:
+              Цүнхний төрөл:
               <select
-                defaultValue={isBagHere ? bagEdit.bagType : bagType}
+                value={isBagHere ? bagEdit.bagType : bagType}
                 onChange={(e) => setBagType(e.target.value)}
                 className="border cursor pointer py-1 rounded-lg">
-                <option value="">Select Bag Type</option>
+                <option value="">Төрөл сонгох</option>
                 <option value="Hand_bag">Hand bag</option>
                 <option value="Accessory_bag">Accessory bag</option>
                 <option value="Travel_bag">Travel bag</option>
@@ -308,7 +296,7 @@ export const TestingProduct = () => {
             </label>
 
             <label className="flex justify-between">
-              Sale:
+              Хямдрал:
               <input
                 type="number"
                 defaultValue={isBagHere ? bagEdit.sale : sale}
@@ -320,12 +308,12 @@ export const TestingProduct = () => {
           <label>
             <div className=" border p-6 border-gray-400 border-dashed rounded-lg mt-6">
               <p className="ml-5 text-gray-300 text-xs mb-2">
-                Section of the color and pictures
+                Өнгө болон зураг оруулах хэсэг
               </p>
               <div>
                 <div className="flex items-center gap-2 justify-between">
                   <div>
-                    <p className="">User color:</p>
+                    <p className="">Хэрэглэгчийн өнгө:</p>
                     <div className="flex justify-between flex-col">
                       <input
                         type="text"
@@ -334,24 +322,24 @@ export const TestingProduct = () => {
                         }
                         onChange={(e) => setColorInput(e.target.value)}
                         className="border w-[250px] px-2 py-1 ml-[16px] placeholder:text-xs placeholder:font-small rounded hover:shadow-md duration-300"
-                        placeholder="Example: Gold leather or Beige etc . . ."
+                        placeholder="Жишээ нь: Gold leather or Beige etc . . ."
                       />
                     </div>
                   </div>
                   <div>
-                    <p className="">Admin color:</p>
-                    <div className="flex justify-between flex-col">
+                    <p className="">Админы өнгө:</p>
+                    <div className="flex justify-between items-center w-[220px]">
                       <input
-                        type="text"
+                        type="color"
                         defaultValue={
                           isBagHere
                             ? bagEdit.colors[0].adminColor
                             : adminColorInput
                         }
                         onChange={(e) => setAdminColorInput(e.target.value)}
-                        className="border w-[250px] px-2 py-1 ml-[16px] placeholder:text-xs placeholder:font-small rounded hover:shadow-md duration-300"
-                        placeholder="Example: red or blue etc . . ."
+                        className="border w-[100px] h-10 px-2 py-1 ml-[16px] placeholder:text-xs placeholder:font-small rounded hover:shadow-md duration-300"
                       />
+                      <div>{adminColorInput}</div>
                     </div>
                   </div>
                 </div>
@@ -463,7 +451,7 @@ export const TestingProduct = () => {
                   onClick={handleColorAdd}
                   type="button"
                   className="border border-stone-300 text-stone-500 px-3 rounded-lg hover:text-white hover:bg-stone-500 duration-500 w-[300px] h-10 m-auto font-bold">
-                  Add color with pictures
+                  Өнгө болон зурагнууд нэмэх
                 </button>
               </div>
             </div>
@@ -473,10 +461,17 @@ export const TestingProduct = () => {
                   <div
                     key={colorIndex + colorName}
                     className="flex items-center justify-around w-full">
-                    {colorName}
+                    <div className="">
+                      <p className="text-[10px] text-gray-500">User color:</p>
+                      <div>{colorName}</div>
+                    </div>
                     <div>
                       <p className="text-[10px] text-gray-500">Bag code:</p>
                       <div>{bagCode}</div>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-gray-500">Admin color:</p>
+                      <div>{adminColorInput}</div>
                     </div>
                     <div>
                       <div className="text-[10px] text-gray-500">Images</div>
@@ -501,23 +496,13 @@ export const TestingProduct = () => {
             </div>
           </label>
           <div className="flex justify-end">
-            {isBagHere ? (
-              <button
-                type="submit"
-                onClick={handleUpdateBag}
-                className="border py-1 rounded-lg hover:text-white hover:bg-black duration-300 w-[300px] h-[60px] my-8 text-xl font-bold">
-                Update Bag
-                <i className="fa-solid fa-wrench ml-2"></i>
-              </button>
-            ) : (
-              <button
-                type="submit"
-                onClick={handleAddBag}
-                className="border border-stone-300 py-1 rounded-lg hover:text-white hover:bg-stone-500 text-stone-500 duration-500 w-[300px] h-[60px] my-8 text-xl font-bold">
-                Create Bag
-                <i className="fa-solid fa-file-import ml-2"></i>
-              </button>
-            )}
+            <button
+              type="submit"
+              onClick={handleAddBag}
+              className="border border-stone-300 py-1 rounded-lg hover:text-white hover:bg-stone-500 text-stone-500 duration-500 w-[300px] h-[60px] my-8 text-xl font-bold">
+              Цүнх үүсгэх
+              <i className="fa-solid fa-file-import ml-2"></i>
+            </button>
           </div>
         </div>
       )}

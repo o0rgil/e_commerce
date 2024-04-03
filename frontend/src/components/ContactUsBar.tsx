@@ -8,8 +8,8 @@ export const ContactUsBar = () => {
     ContactVisiblityContext
   );
   return (
-    <div>
-      <div className="absolute w-full h-full bg-black opacity-70 top-0 left-0"></div>
+    <div className="">
+      <div className="absolute  w-full h-full bg-black opacity-70 top-0 left-0"></div>
       <div className="absolute h-full w-1/2 bg-white flex-col right-0 top-0 flex">
         <div className="pt-[64px] pl-[150px] flex flex-col gap-10">
           <div className="flex justify-between pr-[150px]">

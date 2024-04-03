@@ -5,11 +5,16 @@ import React, { useState } from "react";
 interface Bags {
   images: string[];
   bagName: string;
+  adminColor: string;
 }
 interface Bag {
   bagName?: string;
   colors: Bags[];
+
   _id: string;
+
+  adminColor: string;
+
 }
 
 interface BoxStyleProps {
@@ -43,7 +48,7 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
   console.log("bag", bags);
 
   return (
-    <div className=" ">
+    <div className="">
       <div className="relative w-full h-full ">
         <div className="carousel-container  relative w-full h-full ">
           {bags.colors[selectedColor]?.images.map((image: any, idx: number) => (
@@ -65,15 +70,18 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">
             <a href={`${bags._id}`}>{bags.bagName || "Hermes"}</a>
             <div className="flex gap-1">
-              {bags.colors.map((color, index) => (
-                <div
-                  key={index}
-                  className={`border border-spacing-2 border-black rounded-full w-4 h-4 cursor-pointer ${
-                    selectedColor === index ? "bg-black" : ""
-                  }`}
-                  onClick={() => handleColorSelect(index)}
-                />
-              ))}
+              {bags.colors.map((color, index) => {
+                return (
+                  <div
+                    key={index}
+                    style={{ backgroundColor: color.adminColor }}
+                    className={`border border-spacing-2 rounded-full w-4  h-4 cursor-pointer ${
+                      selectedColor === index ? "" : ""
+                    }`}
+                    onClick={() => handleColorSelect(index)}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
