@@ -8,7 +8,7 @@ import Loadingpage from "../pages/loading";
 import { DeleteModal } from "../components/sub_components/DeleteModal";
 
 const BASE_URL = "http://localhost:8080";
-interface Product {
+type Product = {
   _id: string;
   thumbnails: string;
   productName: string;
@@ -18,7 +18,7 @@ interface Product {
   bagName: string;
   brand: string;
   colors: { color: string; adminColor: string }[];
-}
+};
 
 export const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);

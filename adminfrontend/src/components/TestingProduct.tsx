@@ -1,7 +1,7 @@
 /** @format */
 
-import { useState, useEffect } from "react";
-import axios, { AxiosError } from "axios";
+import { useState } from "react";
+import axios from "axios";
 import Loadingpage from "../pages/loading";
 import { useRouter } from "next/router";
 import { instance } from "@/instance";
@@ -13,9 +13,6 @@ export const TestingProduct = () => {
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
   const [bagType, setBagType] = useState("");
-
-  // const [coupon, setCoupon] = useState("");
-
   const [sale, setSale] = useState("");
   const [colorInput, setColorInput] = useState("");
   const [adminColorInput, setAdminColorInput] = useState("");
@@ -38,11 +35,9 @@ export const TestingProduct = () => {
   const [uploadedImage01, setUploadedImage01] = useState<string | undefined>();
   const [uploadedImage02, setUploadedImage02] = useState<string | undefined>();
   const [uploadedImage03, setUploadedImage03] = useState<string | undefined>();
-  // console.log(uploadedImage, "uploadedImage");
   const [imageLoading01, setImageLoading01] = useState(false);
   const [imageLoading02, setImageLoading02] = useState(false);
   const [imageLoading03, setImageLoading03] = useState(false);
-  // Edit declaration ===
 
   const handleBack = () => {
     router.push("/productnav");

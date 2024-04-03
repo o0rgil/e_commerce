@@ -28,7 +28,6 @@ export const UpdateProduct = () => {
   const router = useRouter();
   const [oldBag, setOldBag] = useState<Bag | null>(null);
   const [adminColor, setAdminColor] = useState<String[]>([]);
-
   const [loading, setLoading] = useState(false);
   const [updatedBag, setUpdatedBag] = useState<Bag>();
 
@@ -98,9 +97,7 @@ export const UpdateProduct = () => {
           colors: oldBag.colors.map((color) => ({ ...color })),
         };
       }
-
       const updatedBagCopy = { ...prevBag };
-
       if (fieldName === "colors") {
         updatedBagCopy.colors[colorIndex].color = value;
       } else if (fieldName === "adminColor") {
@@ -111,7 +108,6 @@ export const UpdateProduct = () => {
       } else {
         (updatedBagCopy as any)[fieldName] = value;
       }
-
       return updatedBagCopy;
     });
   };
