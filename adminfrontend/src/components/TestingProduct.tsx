@@ -83,7 +83,7 @@ export const TestingProduct = () => {
       setColors([]);
       setImages(null);
     } catch (error) {
-      alert(error?.response.data.message);
+      alert(error?.response?.data.message);
     } finally {
       setLoading(false);
     }
