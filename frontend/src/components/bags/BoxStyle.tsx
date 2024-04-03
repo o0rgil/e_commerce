@@ -69,6 +69,7 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
             {bags.colors.map((color, index) => (
               <div
                 key={index}
+                style={{ backgroundColor: color.adminColor }}
                 className={`border border-spacing-2 border-black rounded-full lg:w-4 lg:h-4 cursor-pointer w-3 h-3 ${
                   selectedColor === index ? "bg-black" : ""
                 }`}
