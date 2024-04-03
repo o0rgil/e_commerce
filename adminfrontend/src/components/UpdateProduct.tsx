@@ -40,7 +40,7 @@ export const UpdateProduct = () => {
   useEffect(() => {
     const { _id } = router.query;
     console.log(router.query, "reouter.query");
-    const fetchBagEdit = async (_id) => {
+    const fetchBagEdit = async (_id: string) => {
       try {
         const response = await axios.get<{ product: Bag }>(
           `http://localhost:8080/products/${_id}`
@@ -52,7 +52,7 @@ export const UpdateProduct = () => {
       }
     };
     if (_id) {
-      fetchBagEdit(_id);
+      fetchBagEdit(_id as string);
     }
   }, [router.query?._id]);
 
@@ -63,7 +63,7 @@ export const UpdateProduct = () => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `http://localhost:8080/productUpdate/${oldBag._id}`,
+        `http://localhost:8080/productUpdate/${oldBag?._id}`,
         updatedBag
       );
       console.log(response.data);
@@ -109,7 +109,7 @@ export const UpdateProduct = () => {
         setAdminColor(newAdminColors);
         updatedBagCopy.colors[colorIndex].adminColor = value;
       } else {
-        updatedBagCopy[fieldName] = value;
+        (updatedBagCopy as any)[fieldName] = value;
       }
 
       return updatedBagCopy;
@@ -142,7 +142,9 @@ export const UpdateProduct = () => {
             <input
               type="text"
               defaultValue={oldBag.bagName}
-              onChange={(e) => handleInputChange(e, "bagName")}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleInputChange(e, "bagName", 0)
+              }
               className="border border-stone-300 px-2 rounded-md"
             />
           </label>
@@ -175,7 +177,9 @@ export const UpdateProduct = () => {
             <input
               type="number"
               defaultValue={oldBag.price}
-              onChange={(e) => handleInputChange(e, "price")}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleInputChange(e, "price", 0)
+              }
               className="border border-stone-300 px-2 rounded-md"
             />
           </label>
@@ -184,7 +188,9 @@ export const UpdateProduct = () => {
             <input
               type="number"
               defaultValue={oldBag.sale || ""}
-              onChange={(e) => handleInputChange(e, "sale")}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleInputChange(e, "sale", 0)
+              }
               className="border border-stone-300 px-2 rounded-md"
             />
           </label>
@@ -208,7 +214,7 @@ export const UpdateProduct = () => {
                   <input
                     type="color"
                     onChange={(e) => {
-                      setAdminColor(e.target.value);
+                      setAdminColor([...adminColor, e.target.value]);
                       handleInputChange(e, "adminColor", colorIndex);
                     }}
                     className="border border-stone-300 px-2 rounded-md"
